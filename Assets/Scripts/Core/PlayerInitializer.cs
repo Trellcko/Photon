@@ -1,13 +1,14 @@
 using Fusion;
 using System.Collections.Generic;
+using Trellcko.MonstersVsMonsters.Core.Unit;
 using Trellcko.MonstersVsMonsters.UI;
 using UnityEngine;
 
-namespace Trellcko
+namespace Trellcko.MonstersVsMonsters.Core
 {
 	public class PlayerInitializer : NetworkBehaviour
 	{
-		[SerializeField] private MonsterBase prefab;
+		[SerializeField] private Base prefab;
 
 		[Networked, HideInInspector] public int InitializeCount { get; set; }
 

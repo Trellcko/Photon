@@ -2,9 +2,9 @@ using Fusion;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Trellcko
+namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class MonsterBase : MonoBehaviour
+	public class Base : MonoBehaviour
 	{
 		private List<Spawner> _spawners;
 		

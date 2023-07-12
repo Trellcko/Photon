@@ -1,7 +1,7 @@
 using Fusion;
 using UnityEngine;
 
-namespace Trellcko
+namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
 	public class Spawner : NetworkBehaviour
 	{

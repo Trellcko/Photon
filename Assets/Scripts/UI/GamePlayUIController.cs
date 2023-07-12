@@ -1,4 +1,5 @@
 using Fusion;
+using Trellcko.MonstersVsMonsters.Core.Unit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,13 +11,13 @@ namespace Trellcko.MonstersVsMonsters.UI
 		[SerializeField] private Button _rightButton;
 
       
-		public void EnableLeftPlayerUI(MonsterBase monsterBase)
+		public void EnableLeftPlayerUI(Base monsterBase)
 		{
 			_leftButton.gameObject.SetActive(true);
 			_leftButton.onClick.AddListener(monsterBase.SpawnMonster);
 		}
 
-        public void EnableRightPlayerUI(MonsterBase monsterBase) 
+        public void EnableRightPlayerUI(Base monsterBase) 
 		{ 
 			_rightButton.gameObject.SetActive(true);
 
