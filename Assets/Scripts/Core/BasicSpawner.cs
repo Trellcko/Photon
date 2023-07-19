@@ -2,7 +2,6 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
-using Trellcko.MonstersVsMonsters.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

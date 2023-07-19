@@ -1,7 +1,5 @@
 using Fusion;
-using System.Collections.Generic;
 using Trellcko.MonstersVsMonsters.Core.Unit;
-using Trellcko.MonstersVsMonsters.UI;
 using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core
@@ -12,10 +10,8 @@ namespace Trellcko.MonstersVsMonsters.Core
 
 		[Networked, HideInInspector] public int InitializeCount { get; set; }
 
-		[SerializeField] private GamePlayUIController _gamePlayUIInitializer;
-
-		[SerializeField] private List<Spawner> _leftSpawners;
-		[SerializeField] private List<Spawner> _rigthSpawners;
+		[SerializeField] private Base _leftBase;
+		[SerializeField] private Base _rigthBase;
 
         public override void Spawned()
         {
@@ -25,18 +21,13 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void Initialize()
 		{
-			var monsterBase = Instantiate(prefab);
-
-
 			if(InitializeCount == 0)
 			{
-				monsterBase.Init(_leftSpawners, Runner.LocalPlayer);
-				_gamePlayUIInitializer.EnableLeftPlayerUI(monsterBase);
+				_leftBase.Init(Runner.LocalPlayer);
 			}
 			else
             {
-                monsterBase.Init(_rigthSpawners, Runner.LocalPlayer);
-                _gamePlayUIInitializer.EnableRightPlayerUI(monsterBase);
+                _rigthBase.Init(Runner.LocalPlayer);
 			}
 			InitializeCount++;
 		}
