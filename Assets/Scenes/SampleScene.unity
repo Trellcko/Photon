@@ -330,10 +330,10 @@ MonoBehaviour:
   _startRotation: {x: 0, y: 90, z: 0}
   _spawned:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _opponent:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!65 &450215187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1558,10 +1558,10 @@ MonoBehaviour:
   _startRotation: {x: 0, y: -90, z: 0}
   _spawned:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   _opponent:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!65 &1747132260
 BoxCollider:
   m_ObjectHideFlags: 0
