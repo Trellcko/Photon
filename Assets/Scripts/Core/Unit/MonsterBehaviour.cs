@@ -9,7 +9,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 	{
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NetworkRigidbody _rigibody;
-        [SerializeField] private AreaChecker _opponentAreaChecker;
+        [SerializeField] private OpponentChecker _opponentAreaChecker;
         [SerializeField] private Health _health;
 
 		private StateMachine _stateMachine;
@@ -47,15 +47,15 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         }
 
-        public void Init(MonsterData monsterData, Transform target, LayerMask me, LayerMask opponent)
+        public void Init(MonsterData monsterData, Transform target, Side side)
         {
-            _health.Init(monsterData.Health);
+            _health.Init(monsterData.Health, side);
 
-            gameObject.layer = me;
-            _opponentAreaChecker.OpponentLayerMask = opponent;
-            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target);
+            _opponentAreaChecker.MySide = side;
+            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target, monsterData.Speed);
+            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage);
 
-            _stateMachine = new StateMachine(moveToOpponentBaseState);
+            _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState);
             _stateMachine.SetState<MoveToOponentBaseState>();
         }
 

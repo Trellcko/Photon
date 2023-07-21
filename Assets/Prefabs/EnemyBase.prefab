@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8925733394735710049}
   - component: {fileID: 1607981611620985133}
   - component: {fileID: 6351132465608515882}
+  - component: {fileID: 5032968869352708679}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   _navMeshAgent: {fileID: 2841558062868926910}
   _rigibody: {fileID: 1607981611620985133}
   _opponentAreaChecker: {fileID: 6351132465608515882}
+  _health: {fileID: 5032968869352708679}
 --- !u!114 &1607981611620985133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,3 +175,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radius: 10
   delay: 1
+--- !u!114 &5032968869352708679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171268723566218786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1334baf2019ce41abd46a81b0608c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

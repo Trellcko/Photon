@@ -7,8 +7,8 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 	public class Health : MonoBehaviour
 	{
 		[Networked] public float MaxHealth { get; set; }
-		
 		[Networked] public float Value { get; set; }
+		[Networked] public Side Side { get; set; }
 
         public bool IsDead => Value <= 0;
 		
@@ -16,8 +16,9 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		public event Action Changed;
 		public event Action Died;
 
-		public void Init(float maxHealth)
+		public void Init(float maxHealth, Side side)
 		{
+			Side= side;
 			MaxHealth = maxHealth;
 			Value = maxHealth;
 		}
@@ -38,5 +39,12 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		}
 
+	}
+
+	public enum Side
+	{
+		Rigth,
+		Left,
+		Neutral
 	}
 }

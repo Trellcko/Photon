@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6556276108760110806}
   - component: {fileID: -3356655716956153880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MonsterBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d1e0e3eace09c46863d4f052711aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawners: []

@@ -10,12 +10,13 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private readonly Transform _oponentBasePoint;
 		private readonly NetworkRigidbody _rigibody;
 
-		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, AreaChecker opponentAreaChecker, Transform target) 
+
+		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, OpponentChecker opponentAreaChecker, Transform target, float speed) 
 		{
 			_navMeshAgent = navMeshAgent;
 			_oponentBasePoint = target;
 			_rigibody = rigibody;
-
+			_navMeshAgent.speed = speed;
 
 			GoToState<AttackingState>(() => opponentAreaChecker.LastTarget);
 		}

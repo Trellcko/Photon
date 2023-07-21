@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46908b16b055a9c42a1be570e859c83b, type: 3}
-  m_Name: DragonData
+  m_Name: DragonData 1
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 3088830245382182623, guid: aa6785d12b5802f45a75e72d8d639724, type: 3}
-  <Health>k__BackingField: 100
+  <Health>k__BackingField: 120
   <Damage>k__BackingField: 10
   <Reload>k__BackingField: 2
   <Speed>k__BackingField: 8

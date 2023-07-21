@@ -13,15 +13,14 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Vector3 _startRotation;
 
-		[SerializeField] private LayerMask _spawned;
-		[SerializeField] private LayerMask _opponent;
+		[SerializeField] private Side _side;
+
+        [Networked] private PlayerRef _ref { get; set; }
+
+
+        public event Action<Spawner> Clicked;
 
 		
-
-		public event Action<Spawner> Clicked;
-
-		[Networked] private PlayerRef _ref { get; set; }
-
 		public void Init(PlayerRef playerRef)
 		{
 			_ref = playerRef;
@@ -37,10 +36,11 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public void Spawn()
 		{
+			Debug.Log("spawn");
 			var spawned = Runner.Spawn(_monsterData.Prefab, _spawnPoint.position);
 			spawned.SetTransform(_spawnPoint.position, _startRotation);
-			spawned.gameObject.layer = _spawned;
-			spawned.Init(_monsterData, _target, _spawned, _opponent);
+
+            spawned.Init(_monsterData, _target, _side);
 		}
 	}
 }
