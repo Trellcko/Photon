@@ -23,6 +23,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void Enter()
         {
+			Debug.Log($"{_rigibody.name} GO To OpponentBase");
 			_navMeshAgent.isStopped = false;
             _navMeshAgent.updatePosition = false;
             _navMeshAgent.destination = _oponentBasePoint.position;
@@ -30,7 +31,9 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void Exit()
         {
-			_navMeshAgent.isStopped = true;
+
+            Debug.Log($"{_rigibody.name} not more go to OpponentBase");
+            _navMeshAgent.isStopped = true;
         }
 
         public override void FixedUpdate()

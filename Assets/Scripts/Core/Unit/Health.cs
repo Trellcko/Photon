@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class Health : MonoBehaviour
+	public class Health : NetworkBehaviour
 	{
 		[Networked] public float MaxHealth { get; set; }
 		[Networked] public float Value { get; set; }
@@ -18,17 +18,17 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		public void Init(float maxHealth, Side side)
 		{
-			Side= side;
+			Side = side;
 			MaxHealth = maxHealth;
 			Value = maxHealth;
 		}
 
 		public void TakeDamage(float damage)
 		{
-			damage = Mathf.Clamp(damage, 0, Mathf.Infinity);
+            if (IsDead) return;
 
-			if(IsDead) return;
-
+            damage = Mathf.Clamp(damage, 0, Mathf.Infinity);
+			
 			Value -= damage;
 			if(Value < 0)
 			{

@@ -7,6 +7,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 	{
 		[SerializeField] private float _radius;
         [SerializeField] private float _delay;
+        [SerializeField] private LayerMask checkMask;
 
         public Vector3 LastTargetPosition => LastTarget.transform.position;
 
@@ -20,32 +21,34 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         private Collider[] _hits = new Collider[10];
 
-        private int _layer = 0;
-
         private void Update()
         {
             _currentTime += Time.deltaTime;
 
             if (_currentTime > _delay)
             {
-                int count = Physics.OverlapSphereNonAlloc(transform.position, _radius,  _hits, _layer);
+                int count = Physics.OverlapSphereNonAlloc(transform.position, _radius,  _hits, checkMask);
 
-                Debug.Log("count: " + count);
                 for (int i = 0; i < count; i++)
                 {
+
                     if (_lastTargetGO == _hits[i].transform.gameObject)
                     {
-                        break;
+
+                        return;
                     }
                     if (_hits[i].transform.TryGetComponent(out Health health))
                     {
                         if (health.Side != _mySide)
                         {
+
                             LastTarget = health;
-                            break;
+                            return;
                         }
+
                     }
                 }
+                LastTarget = null;
                 _lastTargetGO = null;
 
                 _currentTime = 0f;
@@ -56,7 +59,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public void Init(Side side)
         {
             _mySide = side;
-            _layer = ~(1 << gameObject.layer);
         }
 
         public void Init(Side side, float radius)

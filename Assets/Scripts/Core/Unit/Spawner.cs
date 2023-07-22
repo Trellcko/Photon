@@ -37,11 +37,13 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public void Spawn()
 		{
-			Debug.Log("spawn");
 			var spawned = Runner.Spawn(_monsterData.Prefab, _spawnPoint.position);
 			spawned.SetTransform(_spawnPoint.position, _startRotation);
-			spawned.gameObject.layer = (1 << _layerMask);
+			spawned.gameObject.layer = (int)Mathf.Log(_layerMask, 2);
             spawned.Init(_monsterData, _target, _side);
+			
+			
 		}
+
 	}
 }

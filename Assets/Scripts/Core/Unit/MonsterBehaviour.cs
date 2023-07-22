@@ -1,4 +1,5 @@
 using Fusion;
+using System;
 using Trellcko.MonstersVsMonsters.Data;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,16 +13,16 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         [SerializeField] private OpponentChecker _opponentAreaChecker;
         [SerializeField] private Health _health;
 
-		private StateMachine _stateMachine;
+		private StateMachine _stateMachine { get; set; }
 
         private void OnEnable()
         {
-            _health.Died += OnDied;
+            _health.Died += DestroyMonsterRpc;
         }
 
         private void OnDisable()
         {
-            _health.Died -= OnDied;
+            _health.Died -= DestroyMonsterRpc;
         }
 
         private void Update()
@@ -29,9 +30,10 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _stateMachine?.Update();
         }
 
-        private void OnDied()
+        [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+        private void DestroyMonsterRpc()
         {
-            Runner.Despawn(Object);    
+            _stateMachine.SetState<DieState>();
         }
 
         public override void FixedUpdateNetwork()
@@ -49,16 +51,22 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public void Init(MonsterData monsterData, Transform target, Side side)
         {
+
+            Debug.Log("Init StateMachine");
+
+            name += side.ToString();
             _health.Init(monsterData.Health, side);
 
-            _opponentAreaChecker.Init(side);
+            _opponentAreaChecker.Init(side, monsterData.DetectDistance);
 
+            DieState dieState = new(Runner, Object);
             PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, monsterData.AttackDistnace, monsterData.DetectDistance);
             MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target, monsterData.Speed);
-            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage, monsterData.AttackDistnace);
+            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload);
 
-            _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState);
+            _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState, dieState);
             _stateMachine.SetState<MoveToOponentBaseState>();
+
         }
 
     }

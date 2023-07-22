@@ -6,7 +6,7 @@ namespace Trellcko.MonstersVsMonsters.Utils
 	{
 
 		/// <summary>
-		/// Return true if distance lesser and false if more
+		/// Return true if distance between vectors lesser than value and false if more
 		/// </summary>
 		/// <param name="a"></param>
 		/// <param name="b"></param>
@@ -16,7 +16,7 @@ namespace Trellcko.MonstersVsMonsters.Utils
 		{
 			float sqrMagnitude = Vector3.SqrMagnitude(a - b);
 
-			return sqrMagnitude * sqrMagnitude > distance;
+			return sqrMagnitude < distance*distance;
 		}
 	}
 }

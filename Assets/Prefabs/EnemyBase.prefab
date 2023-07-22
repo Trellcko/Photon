@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1607981611620985133}
   - component: {fileID: 6351132465608515882}
   - component: {fileID: 5032968869352708679}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +79,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 8925733394735710049}
   - {fileID: 1607981611620985133}
+  - {fileID: 5032968869352708679}
   SimulationBehaviours: []
 --- !u!195 &2841558062868926910
 NavMeshAgent:
@@ -174,7 +175,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 10
-  delay: 1
+  _delay: 0.5
+  checkMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &5032968869352708679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,3 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1334baf2019ce41abd46a81b0608c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _MaxHealth: 0
+  _Value: 0
+  _Side: 0
