@@ -33,6 +33,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			if(Value < 0)
 			{
 				Died?.Invoke();
+				Died = null;
 				return;
 			}
 			Changed?.Invoke();

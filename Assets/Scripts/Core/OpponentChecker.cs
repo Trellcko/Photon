@@ -16,7 +16,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         private GameObject _lastTargetGO;
 
-        private RaycastHit[] _hits = new RaycastHit[10];
+        private Collider[] _hits = new Collider[10];
 
         private void Update()
         {
@@ -24,7 +24,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
             if (_currentTime > _delay)
             {
-                int count = Physics.SphereCastNonAlloc(transform.position, _radius, Vector3.zero, _hits);
+                int count = Physics.OverlapSphereNonAlloc(transform.position, _radius,  _hits);
 
                 Debug.Log("count: " + count);
                 for (int i = 0; i < count; i++)
