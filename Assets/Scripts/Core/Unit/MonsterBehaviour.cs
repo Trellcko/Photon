@@ -51,11 +51,13 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         {
             _health.Init(monsterData.Health, side);
 
-            _opponentAreaChecker.MySide = side;
-            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target, monsterData.Speed);
-            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage);
+            _opponentAreaChecker.Init(side);
 
-            _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState);
+            PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, monsterData.AttackDistnace, monsterData.DetectDistance);
+            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target, monsterData.Speed);
+            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage, monsterData.AttackDistnace);
+
+            _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState);
             _stateMachine.SetState<MoveToOponentBaseState>();
         }
 

@@ -18,7 +18,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			_rigibody = rigibody;
 			_navMeshAgent.speed = speed;
 
-			GoToState<AttackingState>(() => opponentAreaChecker.LastTarget);
+			GoToState<PursueState>(() => opponentAreaChecker.LastTarget);
 		}
 
         public override void Enter()

@@ -17,6 +17,9 @@ namespace Trellcko.MonstersVsMonsters.Data
 		[field: Header("Damage")]
 		[field: SerializeField] public float Damage { get; private set; }
 		[field: SerializeField] public float Reload { get; private set; }
+		[field: SerializeField] public float AttackDistnace { get; private set; }
+		[field: SerializeField] public float DetectDistance { get; private set; }
+
 
 		[field: Header("Movement")]
 		[field: SerializeField] public float Speed { get; private set; }

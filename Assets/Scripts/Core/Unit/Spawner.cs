@@ -12,6 +12,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		[SerializeField] private Transform _target;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Vector3 _startRotation;
+		[SerializeField] private LayerMask _layerMask;
 
 		[SerializeField] private Side _side;
 
@@ -39,7 +40,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			Debug.Log("spawn");
 			var spawned = Runner.Spawn(_monsterData.Prefab, _spawnPoint.position);
 			spawned.SetTransform(_spawnPoint.position, _startRotation);
-
+			spawned.gameObject.layer = (1 << _layerMask);
             spawned.Init(_monsterData, _target, _side);
 		}
 	}
