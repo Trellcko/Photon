@@ -9,10 +9,12 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private readonly NavMeshAgent _navMeshAgent;
 		private readonly Transform _oponentBasePoint;
 		private readonly NetworkRigidbody _rigibody;
+		private readonly AnimatorController _animator;
 
 
-		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, OpponentChecker opponentAreaChecker, Transform target, float speed) 
+		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, OpponentChecker opponentAreaChecker, AnimatorController animator, Transform target, float speed) 
 		{
+			_animator = animator;
 			_navMeshAgent = navMeshAgent;
 			_oponentBasePoint = target;
 			_rigibody = rigibody;
@@ -24,6 +26,8 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public override void Enter()
         {
 			Debug.Log($"{_rigibody.name} GO To OpponentBase");
+			_animator.DisableAttackState();
+			_animator.EnableMovement();
 			_navMeshAgent.isStopped = false;
             _navMeshAgent.updatePosition = false;
             _navMeshAgent.destination = _oponentBasePoint.position;

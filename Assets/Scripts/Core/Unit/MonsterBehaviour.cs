@@ -8,6 +8,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
 	public class MonsterBehaviour : NetworkBehaviour
 	{
+        [SerializeField] private AnimatorController _animatorController;
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NetworkRigidbody _rigibody;
         [SerializeField] private OpponentChecker _opponentAreaChecker;
@@ -59,10 +60,10 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
             _opponentAreaChecker.Init(side, monsterData.DetectDistance);
 
-            DieState dieState = new(Runner, Object);
-            PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, monsterData.AttackDistnace, monsterData.DetectDistance);
-            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, target, monsterData.Speed);
-            AttackingState attackingState = new(_opponentAreaChecker, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload);
+            DieState dieState = new(Runner, Object, _animatorController);
+            PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, _animatorController, monsterData.AttackDistnace, monsterData.DetectDistance);
+            MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, _animatorController, target, monsterData.Speed);
+            AttackingState attackingState = new(_opponentAreaChecker, _animatorController, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload, true);
 
             _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState, dieState);
             _stateMachine.SetState<MoveToOponentBaseState>();

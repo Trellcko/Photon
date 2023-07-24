@@ -10,15 +10,15 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private readonly OpponentChecker _opponentChecker;
 		private readonly NavMeshAgent _navMeshAgent;
 		private readonly NetworkRigidbody _rigidbody;
+        private readonly AnimatorController _animator;
 
-        float detectDistance;
-
-		public PursueState(OpponentChecker opponentChecker, NavMeshAgent navMeshAgent, NetworkRigidbody rigidbody, float attackDistance, float detectDistance)
+		public PursueState(OpponentChecker opponentChecker, NavMeshAgent navMeshAgent, NetworkRigidbody rigidbody, AnimatorController animator, float attackDistance, float detectDistance)
 		{
-            this.detectDistance = detectDistance;
 			_opponentChecker = opponentChecker;
 			_navMeshAgent = navMeshAgent;
 			_rigidbody = rigidbody;
+            _animator = animator;
+
 
 			GoToState<MoveToOponentBaseState>(() => !_opponentChecker.LastTarget);
 
@@ -29,6 +29,8 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void Enter()
         {
+            _animator.DisableAttackState();
+            _animator.EnableMovement();
             Debug.Log($"{_rigidbody.name} Pursue {_opponentChecker.LastTarget.name}");
             _navMeshAgent.isStopped = false;
             _navMeshAgent.updatePosition = false;
