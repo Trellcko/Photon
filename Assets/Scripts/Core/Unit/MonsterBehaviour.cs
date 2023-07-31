@@ -8,22 +8,23 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
 	public class MonsterBehaviour : NetworkBehaviour
 	{
+        [field: SerializeField] public Health Health { get; private set; }
+
         [SerializeField] private AnimatorController _animatorController;
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NetworkRigidbody _rigibody;
         [SerializeField] private OpponentChecker _opponentAreaChecker;
-        [SerializeField] private Health _health;
 
 		private StateMachine _stateMachine { get; set; }
 
         private void OnEnable()
         {
-            _health.Died += DestroyMonsterRpc;
+            Health.Died += DestroyMonsterRpc;
         }
 
         private void OnDisable()
         {
-            _health.Died -= DestroyMonsterRpc;
+            Health.Died -= DestroyMonsterRpc;
         }
 
         private void Update()
@@ -56,7 +57,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             Debug.Log("Init StateMachine");
 
             name += side.ToString();
-            _health.Init(monsterData.Health, side);
+            Health.Init(monsterData.Health, side);
 
             _opponentAreaChecker.Init(side, monsterData.DetectDistance);
 

@@ -158,11 +158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  <Health>k__BackingField: {fileID: 5032968869352708679}
   _animatorController: {fileID: 0}
   _navMeshAgent: {fileID: 2841558062868926910}
   _rigibody: {fileID: 1607981611620985133}
   _opponentAreaChecker: {fileID: 6351132465608515882}
-  _health: {fileID: 5032968869352708679}
 --- !u!114 &6351132465608515882
 MonoBehaviour:
   m_ObjectHideFlags: 0
