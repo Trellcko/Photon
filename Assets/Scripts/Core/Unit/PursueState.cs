@@ -29,8 +29,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void Enter()
         {
-            _animator.DisableAttackState();
-            _animator.EnableMovement();
+            _animator.PlatMovmentFowrad();
             Debug.Log($"{_rigidbody.name} Pursue {_opponentChecker.LastTarget.name}");
             _navMeshAgent.isStopped = false;
             _navMeshAgent.updatePosition = false;

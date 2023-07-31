@@ -1,5 +1,6 @@
 using Fusion;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
@@ -30,15 +31,23 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             damage = Mathf.Clamp(damage, 0, Mathf.Infinity);
 			
 			Value -= damage;
-			if(Value < 0)
+			if(Value <= 0)
+
 			{
-				Died?.Invoke();
-				Died = null;
+				StartCoroutine(DieCorun());
 				return;
 			}
 			Changed?.Invoke();
 
 		}
+
+		private IEnumerator DieCorun()
+		{
+			yield return null;
+			Debug.Log("Died");
+            Died?.Invoke();
+            Died = null;
+        }
 
 	}
 

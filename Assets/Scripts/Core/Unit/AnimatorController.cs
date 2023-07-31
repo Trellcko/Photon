@@ -12,9 +12,8 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		public event Action MeleeAnimationCompleted;
 		public event Action RangeAnimationCompleted;
 
-		private const string Range = "Range";
-		private const string Melee = "Melee";
-		private const string IsAttacking = "IsAttacking";
+		private const string Range = "IsRangeAttacking";
+		private const string Melee = "IsMeleeAttacking";
 		private const string Win = "Win";
 		private const string Die = "Die";
 		private const string Speed = "Speed";
@@ -34,25 +33,30 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			DieAnimationCompleted?.Invoke();
 		}
 
-		public void SetMeleeTrigger()
+		public void StopRangeAttack()
 		{
-			_animator.SetTrigger(Melee);
+			_animator.Animator.SetBool(Melee, false);
 		}
 
-        public void SetRangeTrigger()
+		public void StopMeleeAttack()
+		{
+			_animator.Animator.SetBool(Melee, false);
+		}
+
+		public void PlayMelleAttack()
+		{
+			_animator.Animator.SetBool(Melee, true);
+		}
+
+        public void PlayRangeAttack()
         {
-			_animator.SetTrigger(Range);
+			_animator.Animator.SetBool(Range, true);
         }
 
-		public void EnableAttackState()
+		public void PlayIdle()
 		{
-			_animator.Animator.SetBool(IsAttacking, true);
+			_animator.Animator.SetFloat(Speed, 0f);
 		}
-
-		public void DisableAttackState()
-		{
-			_animator.Animator.SetBool(IsAttacking, false);
-		} 
 		
 		public void PlayWinAnimation()
 		{
@@ -64,14 +68,10 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			_animator.SetTrigger(Die);
 		}
 
-		public void EnableMovement()
+		public void PlatMovmentFowrad()
 		{
 			_animator.Animator.SetFloat(Speed, 1);
 		}
-        public void DisableMovement()
-        {
-			_animator.Animator.SetFloat(Speed, -1);
-        }
 
     }
 }

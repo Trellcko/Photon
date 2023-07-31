@@ -1,5 +1,4 @@
 ﻿using Fusion;
-using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
@@ -20,8 +19,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public override void Enter()
         {
             _animator.DieAnimationCompleted += Die;
-            _animator.DisableMovement();
-            _animator.DisableAttackState();
             _animator.PlayDieAnimation();
         }
 

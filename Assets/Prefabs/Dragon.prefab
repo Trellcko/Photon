@@ -57,6 +57,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8127e13091546149b8171fbb5e3276d, type: 3}
+--- !u!1 &841573057623649604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3492455130390485712, guid: b8127e13091546149b8171fbb5e3276d, type: 3}
+  m_PrefabInstance: {fileID: 4312881996521551764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2427276767567749075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841573057623649604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  Animator: {fileID: 841573057631035108}
+  TotalWords: 2
+  SyncSettings: 79
+  FloatAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  TimeAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: 1061325578
+  WeightAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  StateHashes: 000000002b1a167c79406955edb25a4ff72360a557e353d64d72693ce0826ad2a32c59d1ec45916ff6d4ab85c63906bf421ad0507f041088fd4b5c0d37b935014e73a6a7
+  TriggerHashes: 0000000037b93501
+--- !u!114 &9198840519926182090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841573057623649604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8e43323ad853438eeb7e66d6ad4f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 2427276767567749075}
 --- !u!95 &841573057631035108 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3492455130383198576, guid: b8127e13091546149b8171fbb5e3276d, type: 3}
@@ -126,180 +174,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[1]
+      value: 
+      objectReference: {fileID: 3088830245382182623}
+    - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[2]
+      value: 
+      objectReference: {fileID: 1502965325450376185}
+    - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[3]
+      value: 
+      objectReference: {fileID: 2427276767567749075}
+    - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
       value: -864031233279694934
       objectReference: {fileID: 0}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
       value: 2636685564860396890
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: Animator
-      value: 
-      objectReference: {fileID: 841573057631035108}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TotalWords
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.size
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[1]
-      value: 2073555363
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[2]
-      value: 1286750864
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[3]
-      value: 1331344109
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[4]
-      value: -1520425993
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[5]
-      value: -699145385
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[6]
-      value: 1013543501
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[7]
-      value: -764771616
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[8]
-      value: -782685021
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[9]
-      value: 1871791596
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[10]
-      value: -2052336394
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[11]
-      value: -1090111034
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[12]
-      value: 1355815490
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[13]
-      value: -2012216193
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[14]
-      value: 224152573
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[15]
-      value: 20298039
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[16]
-      value: -1482263730
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[17]
-      value: -714921412
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[18]
-      value: -699366273
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[19]
-      value: -900577816
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[20]
-      value: 629433964
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[21]
-      value: 1505936278
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[22]
-      value: -1275571572
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[23]
-      value: 1871791596
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[24]
-      value: -2052336394
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[25]
-      value: -1090111034
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[26]
-      value: 1355815490
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[27]
-      value: -1949373134
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[28]
-      value: -1996668047
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[29]
-      value: -2012216193
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[30]
-      value: 224152573
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[31]
-      value: 20298039
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: StateHashes.Array.data[32]
-      value: -1482263730
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[1]
-      value: 237393061
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[2]
-      value: 1380349261
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[3]
-      value: 20298039
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[4]
-      value: 1980192711
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[5]
-      value: -2012216193
-      objectReference: {fileID: 0}
-    - target: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
-      propertyPath: TriggerHashes.Array.data[6]
-      value: -1090111034
       objectReference: {fileID: 0}
     - target: {fileID: 7171268723566218786, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: m_Name
@@ -308,38 +204,31 @@ PrefabInstance:
     - target: {fileID: 8925733394735710049, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: _animatorController
       value: 
-      objectReference: {fileID: 4688496137184293915}
+      objectReference: {fileID: 9198840519926182090}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
---- !u!114 &943892775932441313 stripped
+--- !u!114 &1502965325450376185 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6636697264258440031, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5032968869352708679, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
   m_PrefabInstance: {fileID: 5837555194458335678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3640702274615142300}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d1334baf2019ce41abd46a81b0608c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3640702274615142300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7171268723566218786, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+--- !u!114 &3088830245382182623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8925733394735710049, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
   m_PrefabInstance: {fileID: 5837555194458335678}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4688496137184293915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3640702274615142300}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b8e43323ad853438eeb7e66d6ad4f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 44f0a9eedd368a142a8634a6415a0e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 943892775932441313}
 --- !u!4 &5457199424448929580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1925557618694321810, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}

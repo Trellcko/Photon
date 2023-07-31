@@ -63,7 +63,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             DieState dieState = new(Runner, Object, _animatorController);
             PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, _animatorController, monsterData.AttackDistnace, monsterData.DetectDistance);
             MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, _animatorController, target, monsterData.Speed);
-            AttackingState attackingState = new(_opponentAreaChecker, _animatorController, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload, true);
+            AttackingState attackingState = new(Runner, _opponentAreaChecker, _animatorController, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload, true);
 
             _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState, dieState);
             _stateMachine.SetState<MoveToOponentBaseState>();

@@ -1,3 +1,4 @@
+using Fusion;
 using Trellcko.MonstersVsMonsters.Utils;
 using UnityEngine;
 
@@ -7,15 +8,19 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 	{
         private readonly OpponentChecker _areaChecker;
         private readonly AnimatorController _animator;
+        private readonly NetworkRunner _runner;
 
         private readonly float _damage;
         private readonly float _attackReload;
         private readonly bool _isMelee;
 
+        private bool _isAttacking;
+
         private float _currentTime;
 
-        public AttackingState(OpponentChecker areaChecker, AnimatorController animator, float damage, float attackDistance, float attackReload, bool isMelee)
+        public AttackingState(NetworkRunner runner, OpponentChecker areaChecker, AnimatorController animator, float damage, float attackDistance, float attackReload, bool isMelee)
         {
+            _runner = runner;
             _animator = animator;
             _attackReload = attackReload;
             _areaChecker = areaChecker;
@@ -23,14 +28,14 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _isMelee = isMelee;
 
             GoToState<MoveToOponentBaseState>(() => !_areaChecker.LastTarget);
-            GoToState<PursueState>(() => areaChecker.LastTarget && !Vector3Extensions.SqrVectorDistacneCheck(_areaChecker.transform.position, _areaChecker.LastTargetPosition, attackDistance));
+            GoToState<PursueState>(() => _areaChecker.LastTarget && !Vector3Extensions.SqrVectorDistacneCheck(_areaChecker.transform.position, _areaChecker.LastTargetPosition, attackDistance));
             _isMelee = isMelee;
         }
 
         public override void Enter()
         {
-            _animator.DisableMovement();
-            _animator.EnableAttackState();
+            _isAttacking = false;
+            _animator.PlayIdle();
 
             if (_isMelee)
             {
@@ -44,6 +49,11 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         private void OnMeleeAnimationCompleted()
         {
+            _animator.StopMeleeAttack();
+            _isAttacking = false;
+            _currentTime = 0f;
+            Debug.Log($"{_areaChecker.name} take {_damage} {_areaChecker.LastTarget.name}" +
+    $"he has {_areaChecker.LastTarget.Value}");
             _areaChecker.LastTarget.TakeDamage(_damage);
         }
 
@@ -54,19 +64,17 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _areaChecker.enabled = true;
         }
 
-        public override void Update()
+        public override void FixedUpdate()
         {
-            if (_currentTime > _attackReload)
+            if (_currentTime > _attackReload && !_isAttacking)
             {
-                Debug.Log($"{_areaChecker.name} take {_damage} {_areaChecker.LastTarget.name}" +
-                    $"he has {_areaChecker.LastTarget.Value}");
+                _isAttacking = true;
                 if (_isMelee)
                 {
-                    _animator.SetMeleeTrigger();
+                    _animator.PlayMelleAttack();
                 }
-                _currentTime = 0f;
             }
-            _currentTime += Time.deltaTime;
+            _currentTime += _runner.DeltaTime;
         }
     }
 }

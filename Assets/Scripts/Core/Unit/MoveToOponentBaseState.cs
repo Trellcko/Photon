@@ -26,8 +26,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public override void Enter()
         {
 			Debug.Log($"{_rigibody.name} GO To OpponentBase");
-			_animator.DisableAttackState();
-			_animator.EnableMovement();
+			_animator.PlatMovmentFowrad();
 			_navMeshAgent.isStopped = false;
             _navMeshAgent.updatePosition = false;
             _navMeshAgent.destination = _oponentBasePoint.position;
