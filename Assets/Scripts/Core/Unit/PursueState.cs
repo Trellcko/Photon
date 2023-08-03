@@ -32,7 +32,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _animator.PlatMovmentFowrad();
             Debug.Log($"{_rigidbody.name} Pursue {_opponentChecker.LastTarget.name}");
             _navMeshAgent.isStopped = false;
-            _navMeshAgent.updatePosition = false;
             _navMeshAgent.destination = _opponentChecker.LastTargetPosition;
         }
 

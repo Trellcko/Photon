@@ -63,6 +63,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
             _navMeshAgent.speed = monsterData.Speed;
             _navMeshAgent.acceleration = monsterData.Speed;
+            _navMeshAgent.updatePosition = false;
 
             DieState dieState = new(Runner, Object, _animatorController);
             PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, _animatorController, monsterData.AttackDistnace, monsterData.DetectDistance);

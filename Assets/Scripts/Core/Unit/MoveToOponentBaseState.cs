@@ -27,7 +27,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			Debug.Log($"{_rigibody.name} GO To OpponentBase");
 			_animator.PlatMovmentFowrad();
 			_navMeshAgent.isStopped = false;
-            _navMeshAgent.updatePosition = false;
             _navMeshAgent.destination = _oponentBasePoint.position;
         }
 

@@ -47,6 +47,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnDisconnectedFromServer(NetworkRunner runner)
         {
+            Debug.Log("Disconnected");
         }
 
         public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)

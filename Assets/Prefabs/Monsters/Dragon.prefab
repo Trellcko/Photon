@@ -177,6 +177,10 @@ PrefabInstance:
       propertyPath: m_Acceleration
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2841558062868926910, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 5435701267082095740, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: _fill
       value: 
