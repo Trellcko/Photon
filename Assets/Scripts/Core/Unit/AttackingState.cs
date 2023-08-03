@@ -54,7 +54,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _currentTime = 0f;
             Debug.Log($"{_areaChecker.name} take {_damage} {_areaChecker.LastTarget.name}" +
     $"he has {_areaChecker.LastTarget.Value}");
-            _areaChecker.LastTarget.TakeDamage(_damage);
+            _areaChecker.LastTarget.TakeDamageRpc(_damage);
         }
 
         public override void Exit()

@@ -173,6 +173,34 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2841558062868926910, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: m_Acceleration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435701267082095740, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: _fill
+      value: 
+      objectReference: {fileID: 703273753552570047}
+    - target: {fileID: 5435701267082095740, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: _health
+      value: 
+      objectReference: {fileID: 1502965325450376185}
+    - target: {fileID: 5435701267082095740, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: _rectTransform
+      value: 
+      objectReference: {fileID: 703273753552570047}
+    - target: {fileID: 5522702742340726511, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522702742340726511, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522702742340726511, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
       value: 4
@@ -207,6 +235,11 @@ PrefabInstance:
       objectReference: {fileID: 9198840519926182090}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+--- !u!224 &703273753552570047 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6395584561483853569, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+  m_PrefabInstance: {fileID: 5837555194458335678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1502965325450376185 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5032968869352708679, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}

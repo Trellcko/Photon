@@ -1,8 +1,6 @@
 using Fusion;
 using System;
-using Trellcko.MonstersVsMonsters.Core.Pools;
 using Trellcko.MonstersVsMonsters.Data;
-using Trellcko.MonstersVsMonsters.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +8,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
 	public class Spawner : NetworkBehaviour, IPointerClickHandler
 	{
-		[SerializeField] private HealtBarPool _healtBarPool;
 		[SerializeField] private MonsterData _monsterData;
 		[SerializeField] private Transform _target;
 		[SerializeField] private Transform _spawnPoint;
@@ -44,12 +41,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			spawned.SetTransform(_spawnPoint.position, _startRotation);
 			spawned.gameObject.layer = (int)Mathf.Log(_layerMask, 2);
             spawned.Init(_monsterData, _target, _side);
-
-			HealtBar prefab = null;
-			var spawnedHealthBar = _healtBarPool.GetRpc(out prefab, 0, _healtBarPool.transform);
-
-			spawnedHealthBar.AttachTo(spawned.Health, spawned.transform);
 		}
-
 	}
 }

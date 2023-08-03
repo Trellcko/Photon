@@ -11,6 +11,8 @@ namespace Trellcko.MonstersVsMonsters.Core
     {
         private NetworkRunner _runner;
 
+        private List<int> integer = new List<int>();
+
         private void OnGUI()
         {
             if (_runner == null)
@@ -94,8 +96,6 @@ namespace Trellcko.MonstersVsMonsters.Core
         {
             _runner = gameObject.AddComponent<NetworkRunner>();
             _runner.ProvideInput = true;
-
-
             
             await _runner.StartGame(new StartGameArgs()
             {

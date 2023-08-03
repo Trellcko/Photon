@@ -1,20 +1,21 @@
+using Fusion;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Pools
 {
-    public class Pool<T> : MonoBehaviour where T : MonoBehaviour
+    public class Pool<T> : NetworkBehaviour where T : NetworkBehaviour
     {
         [SerializeField] private List<T> prefabs;
 
-        private Dictionary<T, ObjectPool<T>> _storage = new Dictionary<T, ObjectPool<T>>();
+        private Dictionary<T, ObjectNetworkPool<T>> _storage = new Dictionary<T, ObjectNetworkPool<T>>();
 
         private void Awake()
         {
-            _storage = new Dictionary<T, ObjectPool<T>>();
+            _storage = new Dictionary<T, ObjectNetworkPool<T>>();
             foreach (var prefab in prefabs)
             {
-                _storage.Add(prefab, new ObjectPool<T>());
+                _storage.Add(prefab, new ObjectNetworkPool<T>(()=> Runner.Spawn(prefab)));
             }
         }
 
@@ -23,19 +24,19 @@ namespace Trellcko.MonstersVsMonsters.Core.Pools
         {
             prefab = prefabs[Random.Range(0, prefabs.Count)];
 
-            return Get(prefab, parent);
+            return Get(prefab);
         }
 
-        public T Get(out T prefab, int index, Transform parent)
+        public T Get(out T prefab, int index)
         {
             prefab = prefabs[index];
 
-            return Get(prefab, parent);
+            return Get(prefab);
         }
 
-        public T Get(T prefab, Transform parent)
+        public T Get(T prefab)
         {
-            return _storage[prefab].Get(prefab, parent);
+            return _storage[prefab].Get(prefab);
         }
 
         public void Release(T prefab, T poolObject)

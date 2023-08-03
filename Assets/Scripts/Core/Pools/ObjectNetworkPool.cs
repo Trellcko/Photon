@@ -1,27 +1,30 @@
+using Fusion;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Pools
 {
-    public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
+    public class ObjectNetworkPool<T> where T : NetworkBehaviour
     {
         private Stack<T> _stack;
 
         private int _saveToDestroyCount;
 
-        public ObjectPool()
+        private Func<T> _create;
+
+        public ObjectNetworkPool(Func<T> create)
         {
+            _create = create;
             _stack = new Stack<T>();
             _saveToDestroyCount = -1;
         }
 
-        public T Get(T obj, Transform parent)
+        public T Get(T obj)
         {
             if (_stack.Count > 0)
             {
                 var result = _stack.Pop();
-                result.transform.SetParent(parent);
-                result.gameObject.SetActive(true);
+                RPC_Active(result);
 
                 if (_saveToDestroyCount == -1)
                     _saveToDestroyCount = _stack.Count;
@@ -31,20 +34,32 @@ namespace Trellcko.MonstersVsMonsters.Core.Pools
                 return result;
             }
 
-            return CreateNew(obj, parent);
+            return CreateNew(obj);
         }
 
-        public T CreateNew(T obj, Transform parent)
+        public T CreateNew(T obj)
         {
-            var instance = Instantiate(obj, parent);
-            instance.gameObject.SetActive(true);
+            var instance = _create();
             return instance;
         }
 
         public void Release(T obj)
         {
-            obj.gameObject.SetActive(false);
+            RPC_Disable(obj);
             _stack.Push(obj);
         }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_Active(NetworkBehaviour behaviour)
+        {
+            behaviour.gameObject.SetActive(true);
+        }
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        private void RPC_Disable(NetworkBehaviour behaviour)
+        {
+            behaviour.gameObject.SetActive(false);
+        }
+
     }
 }

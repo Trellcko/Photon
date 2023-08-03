@@ -39,7 +39,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
                     }
                     if (_hits[i].transform.TryGetComponent(out Health health))
                     {
-                        if (health.Side != _mySide)
+                        if (health.Runner && health.Side != _mySide)
                         {
 
                             LastTarget = health;

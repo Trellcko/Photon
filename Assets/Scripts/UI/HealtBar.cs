@@ -1,3 +1,4 @@
+using Fusion;
 using Trellcko.MonstersVsMonsters.Core.Unit;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,22 +7,32 @@ namespace Trellcko.MonstersVsMonsters.UI
 {
 	public class HealtBar : MonoBehaviour
 	{
-		[SerializeField] private Image _fill;
-		[SerializeField] private RectTransform _rectTransform;
+		[SerializeField] private RectTransform _fill;
+		
+		[SerializeField] private Health _health;
 
-		private Health _health;
-
-		private Transform _point;
-
-        private void Update()
+        private void OnEnable()
         {
-			_rectTransform.position = new Vector3(_point.position.x, transform.parent.position.y, _point.position.z);
+            _health.Changed += UpdateValue;
+            if (_health.IsSpawned)
+            {
+                UpdateValue(_health.Value);
+            }
         }
 
-        public void AttachTo(Health health, Transform point)
-		{
-			_health = health;
-			_point = point;
+        private void OnDisable()
+        {
+            _health.Changed -= UpdateValue;
+        }
+
+
+        private void UpdateValue(float health)
+        {
+            print(health);
+
+			float x = Mathf.Clamp01(health / _health.MaxHealth);
+
+			_fill.transform.localScale = new Vector2(x, _fill.transform.localScale.y); 
 		}
-	}
+    }
 }
