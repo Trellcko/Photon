@@ -12,13 +12,12 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private readonly AnimatorController _animator;
 
 
-		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, OpponentChecker opponentAreaChecker, AnimatorController animator, Transform target, float speed) 
+		public MoveToOponentBaseState(NavMeshAgent navMeshAgent, NetworkRigidbody rigibody, OpponentChecker opponentAreaChecker, AnimatorController animator, Transform target) 
 		{
 			_animator = animator;
 			_navMeshAgent = navMeshAgent;
 			_oponentBasePoint = target;
 			_rigibody = rigibody;
-			_navMeshAgent.speed = speed;
 
 			GoToState<PursueState>(() => opponentAreaChecker.LastTarget);
 		}
@@ -41,7 +40,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void FixedUpdate()
         {
-			_rigibody.Transform.position = Vector3.MoveTowards(_rigibody.Transform.position, _navMeshAgent.nextPosition, _rigibody.Runner.DeltaTime);
+			_rigibody.Transform.position = Vector3.MoveTowards(_rigibody.Transform.position, _navMeshAgent.nextPosition, _rigibody.Runner.DeltaTime * _navMeshAgent.speed);
         }
     }
 }

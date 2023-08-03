@@ -38,10 +38,12 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void FixedUpdate()
         {
-       
-            _rigidbody.Transform.position = _navMeshAgent.nextPosition;
 
-            _navMeshAgent.destination = _opponentChecker.LastTargetPosition;
+            _rigidbody.Transform.position = Vector3.MoveTowards(_rigidbody.Transform.position, _navMeshAgent.nextPosition, _rigidbody.Runner.DeltaTime * _navMeshAgent.speed);
+            if (_opponentChecker.LastTarget)
+            {
+                _navMeshAgent.destination = _opponentChecker.LastTargetPosition;
+            }
         }
 
         public override void Exit()

@@ -34,6 +34,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
         {
+            Debug.Log("Cannot, connect");
         }
 
         public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
@@ -62,10 +63,13 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
+
+            Debug.Log("Joined");
         }
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
+            Debug.Log("Left");
         }
 
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
@@ -107,17 +111,5 @@ namespace Trellcko.MonstersVsMonsters.Core
             });
          
         }
-
-
-
-        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-        public void RPC_SendMessage(string message, RpcInfo info = default)
-        {
-            if (info.Source == _runner.Simulation.LocalPlayer)
-                message = $"You said: {message}\n";
-            else
-                message = $"Some other player said: {message}\n";
-        }
-
     }
 }
