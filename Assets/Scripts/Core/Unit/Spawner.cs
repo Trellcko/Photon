@@ -17,7 +17,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		[SerializeField] private Miner _miner;
 
-        [Networked] private PlayerRef _ref { get; set; }
+        private PlayerRef _ref { get; set; }
 
 
         public event Action<Spawner> Clicked;

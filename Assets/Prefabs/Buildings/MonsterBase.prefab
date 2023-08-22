@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d1e0e3eace09c46863d4f052711aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   _spawners: []
   _resultHandler: {fileID: 0}
   _baseHealth: {fileID: 184646128948059409}
@@ -94,6 +95,7 @@ MonoBehaviour:
   NestedObjects:
   - {fileID: 7239941917585165318}
   NetworkedBehaviours:
+  - {fileID: -3356655716956153880}
   - {fileID: 184646128948059409}
   SimulationBehaviours: []
 --- !u!65 &974653303785516753

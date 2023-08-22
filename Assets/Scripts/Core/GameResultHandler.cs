@@ -8,7 +8,7 @@ namespace Trellcko
 	{
 		[SerializeField] private TextMeshProUGUI _text;
 
-		[Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+		[Rpc(RpcSources.All, RpcTargets.All)]
 		public void SetLooseToRpc(PlayerRef loose)
 		{
 			print(loose.ToString() + " " + Runner.LocalPlayer);

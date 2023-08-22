@@ -23,11 +23,13 @@ namespace Trellcko.MonstersVsMonsters.Core
 		{
 			if(InitializeCount == 0)
 			{
-				_leftBase.Init(Runner.LocalPlayer);
+				print("Left base was init with ID: " + Runner.LocalPlayer);
+                _leftBase.Init(Runner.Simulation.LocalPlayer);
 			}
 			else
             {
-                _rigthBase.Init(Runner.LocalPlayer);
+                print("Rigth base was init with ID: " + Runner.LocalPlayer);
+                _rigthBase.Init(Runner.Simulation.LocalPlayer);
 			}
 			InitializeCount++;
 		}
