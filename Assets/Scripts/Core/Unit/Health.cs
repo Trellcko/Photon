@@ -1,4 +1,5 @@
 using Fusion;
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,11 +19,11 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public event Action<float> Changed;
 		public event Action Died;
 
-        public override void Spawned()
+		public override void Spawned()
         {
 			base.Spawned();
 			IsSpawned = true;
-        }
+		}
 
         public void Init(float maxHealth, Side side)
 		{

@@ -1,11 +1,12 @@
 using Fusion;
+using Trellcko.MonstersVsMonsters.Core.SM;
 using Trellcko.MonstersVsMonsters.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class PursueState : BaseState
+    public class PursueState : BaseState
 	{
 		private readonly OpponentChecker _opponentChecker;
 		private readonly NavMeshAgent _navMeshAgent;

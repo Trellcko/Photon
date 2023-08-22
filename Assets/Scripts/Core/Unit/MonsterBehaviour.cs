@@ -1,12 +1,12 @@
 using Fusion;
-using System;
+using Trellcko.MonstersVsMonsters.Core.SM;
 using Trellcko.MonstersVsMonsters.Data;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class MonsterBehaviour : NetworkBehaviour
+    public class MonsterBehaviour : NetworkBehaviour
 	{
         [field: SerializeField] public Health Health { get; private set; }
 

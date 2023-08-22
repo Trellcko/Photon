@@ -1,10 +1,11 @@
 using Fusion;
+using Trellcko.MonstersVsMonsters.Core.SM;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class MoveToOponentBaseState : BaseState
+    public class MoveToOponentBaseState : BaseState
 	{
 		private readonly NavMeshAgent _navMeshAgent;
 		private readonly Transform _oponentBasePoint;

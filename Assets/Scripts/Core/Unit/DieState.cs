@@ -1,4 +1,5 @@
 ﻿using Fusion;
+using Trellcko.MonstersVsMonsters.Core.SM;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {

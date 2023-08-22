@@ -23,5 +23,8 @@ namespace Trellcko.MonstersVsMonsters.Data
 
 		[field: Header("Movement")]
 		[field: SerializeField] public float Speed { get; private set; }
+
+		[field:Header("Cost")]
+		[field: SerializeField] public float Gold { get; private set; }
 	}
 }

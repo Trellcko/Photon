@@ -12,6 +12,8 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private Spawner _lastActiveSpawner;
 
+        private bool _isActive;
+
         private void OnEnable()
         {
 
@@ -31,15 +33,22 @@ namespace Trellcko.MonstersVsMonsters.UI
             }
         }
 
+        private void Update()
+        {
+            if(_isActive)
+            _button.interactable = _lastActiveSpawner.CheckCanSpawn();
+        }
+
         private void OnButtonClicked()
         {
-            _lastActiveSpawner.Spawn();
+            _lastActiveSpawner.TrySpawn();
         }
 
         private void OnSpawnerClicked(Spawner spawner)
         {
-            _lastActiveSpawner = spawner;
+            _isActive = true;
             _button.image.enabled = true;
+            _lastActiveSpawner = spawner;
         }
     }
 }

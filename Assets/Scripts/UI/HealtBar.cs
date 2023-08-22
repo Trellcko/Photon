@@ -13,6 +13,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnEnable()
         {
+            _health.Died += OnDied;
             _health.Changed += UpdateValue;
             if (_health.IsSpawned)
             {
@@ -20,8 +21,14 @@ namespace Trellcko.MonstersVsMonsters.UI
             }
         }
 
+        private void OnDied()
+        {
+            UpdateValue(0);
+        }
+
         private void OnDisable()
         {
+            _health.Died -= OnDied;
             _health.Changed -= UpdateValue;
         }
 
