@@ -207,7 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[1]
@@ -219,6 +219,10 @@ PrefabInstance:
       objectReference: {fileID: 1502965325450376185}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[3]
+      value: 
+      objectReference: {fileID: 1899204636249850389}
+    - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[4]
       value: 
       objectReference: {fileID: 2427276767567749075}
     - target: {fileID: 5741156735584815288, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
@@ -234,11 +238,26 @@ PrefabInstance:
       value: Dragon
       objectReference: {fileID: 0}
     - target: {fileID: 8925733394735710049, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+      propertyPath: _attackHandler
+      value: 
+      objectReference: {fileID: 1899204636249850389}
+    - target: {fileID: 8925733394735710049, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
       propertyPath: _animatorController
       value: 
       objectReference: {fileID: 9198840519926182090}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+--- !u!114 &657781554309171348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6351132465608515882, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+  m_PrefabInstance: {fileID: 5837555194458335678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640702274615142300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1c90120aa0437479a9d73a5f568756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &703273753552570047 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6395584561483853569, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
@@ -249,7 +268,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5032968869352708679, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
   m_PrefabInstance: {fileID: 5837555194458335678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3640702274615142300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d1334baf2019ce41abd46a81b0608c9, type: 3}
@@ -260,12 +279,33 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8925733394735710049, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
   m_PrefabInstance: {fileID: 5837555194458335678}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3640702274615142300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44f0a9eedd368a142a8634a6415a0e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3640702274615142300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7171268723566218786, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}
+  m_PrefabInstance: {fileID: 5837555194458335678}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1899204636249850389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640702274615142300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2614542a8322477428c185549c1358b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  Animator: {fileID: 9198840519926182090}
+  OpponentChecker: {fileID: 657781554309171348}
+  _data: {fileID: 11400000, guid: 6c0f1cf0524a06048afb8a7ed5d803d4, type: 2}
 --- !u!4 &5457199424448929580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1925557618694321810, guid: ec128f8f50cb95846b3ed734da466b7a, type: 3}

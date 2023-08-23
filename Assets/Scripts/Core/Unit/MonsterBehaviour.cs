@@ -11,6 +11,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         [field: SerializeField] public Health Health { get; private set; }
 
         [SerializeField] private AnimatorController _animatorController;
+        [SerializeField] private AttackHandler _attackHandler;
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private NetworkRigidbody _rigibody;
         [SerializeField] private OpponentChecker _opponentAreaChecker;
@@ -68,7 +69,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             DieState dieState = new(Runner, Object, _animatorController);
             PursueState pursueState = new(_opponentAreaChecker, _navMeshAgent, _rigibody, _animatorController, monsterData.AttackDistnace, monsterData.DetectDistance);
             MoveToOponentBaseState moveToOpponentBaseState = new(_navMeshAgent, _rigibody, _opponentAreaChecker, _animatorController, target);
-            AttackingState attackingState = new(Runner, _opponentAreaChecker, _animatorController, monsterData.Damage, monsterData.AttackDistnace, monsterData.Reload, true);
+            AttackingState attackingState = new(Runner, _opponentAreaChecker, _animatorController, _attackHandler, monsterData.AttackDistnace);
 
             _stateMachine = new StateMachine(moveToOpponentBaseState, attackingState, pursueState, dieState);
             _stateMachine.SetState<MoveToOponentBaseState>();
