@@ -47,7 +47,7 @@ namespace Trellcko.MonstersVsMonsters.UI
         private void OnSpawnerClicked(Spawner spawner)
         {
             _isActive = true;
-            _button.image.enabled = true;
+            _button.gameObject.SetActive(true);
             _lastActiveSpawner = spawner;
         }
     }

@@ -11,7 +11,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		[SerializeField] private MonsterData _data;
         
 		public float Reload => _data.Reload;
-        public float Damage => _data.Damage;
+        public float Damage => _data.MeleeDamage;
 
         public float CurrentTime { get; protected set; }
 

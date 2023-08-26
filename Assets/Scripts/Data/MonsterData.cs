@@ -1,3 +1,4 @@
+using Fusion;
 using Trellcko.MonstersVsMonsters.Core.Unit;
 using UnityEngine;
 
@@ -14,8 +15,8 @@ namespace Trellcko.MonstersVsMonsters.Data
 		[field: Header("Health")]
 		[field: SerializeField] public float Health { get; private set; }
 
-		[field: Header("Damage")]
-		[field: SerializeField] public float Damage { get; private set; }
+		[field: Header("Attack")]
+		[field: SerializeField] public float MeleeDamage { get; private set; }
 		[field: SerializeField] public float Reload { get; private set; }
 		[field: SerializeField] public float AttackDistnace { get; private set; }
 		[field: SerializeField] public float DetectDistance { get; private set; }
@@ -26,5 +27,16 @@ namespace Trellcko.MonstersVsMonsters.Data
 
 		[field:Header("Cost")]
 		[field: SerializeField] public float Gold { get; private set; }
+
+
+		public MonsterBehaviour Create(Vector3 position, Vector3 rotation, LayerMask layerMask, Side side, Transform targetPoint, NetworkRunner runner)
+		{
+            var spawned = runner.Spawn(Prefab, position);
+            spawned.SetTransform(position, rotation);
+            spawned.gameObject.layer = (int)Mathf.Log(layerMask, 2);
+            spawned.Init(this, targetPoint, side);
+
+			return spawned;
+        }
 	}
 }

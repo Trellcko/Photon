@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Prefab>k__BackingField: {fileID: 3088830245382182623, guid: aa6785d12b5802f45a75e72d8d639724, type: 3}
   <Health>k__BackingField: 15
-  <Damage>k__BackingField: 10
+  <MeleeDamage>k__BackingField: 10
   <Reload>k__BackingField: 2
   <AttackDistnace>k__BackingField: 5
   <DetectDistance>k__BackingField: 30

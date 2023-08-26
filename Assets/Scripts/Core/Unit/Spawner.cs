@@ -55,10 +55,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 			_miner.DecreaseValue(_monsterData.Gold);
 
-			var spawned = Runner.Spawn(_monsterData.Prefab, _spawnPoint.position);
-			spawned.SetTransform(_spawnPoint.position, _startRotation);
-			spawned.gameObject.layer = (int)Mathf.Log(_layerMask, 2);
-            spawned.Init(_monsterData, _targetPoint, _side);
+			_monsterData.Create(_spawnPoint.position, _startRotation, _layerMask, _side, _targetPoint, Runner);
 			return true;
 		}
 	}
