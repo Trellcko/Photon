@@ -9,23 +9,29 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         [SerializeField] private Transform _spawnPoint;
         protected override void OnEnabled()
         {
+            Animator.RangeAnimationAttackFrameCompleted += Attack;
             Animator.RangeAnimationCompleted += OnRangeAnimationCompleted;
         }
-
 
         protected override void OnDisabled()
         {
-            Animator.RangeAnimationCompleted += OnRangeAnimationCompleted;
+            Animator.RangeAnimationAttackFrameCompleted -= Attack;
+            Animator.RangeAnimationCompleted -= OnRangeAnimationCompleted;
         }
 
-        private void OnRangeAnimationCompleted()
+        private void Attack()
         {
             Vector3 direction = (OpponentChecker.LastTarget.transform.position - transform.position).normalized;
             _projectilePrefab.Create(_spawnPoint.position, direction, Runner);
-            IsAttacking = false;
-            CurrentTime = 0f;
 
         }
+        private void OnRangeAnimationCompleted()
+        {
+            IsAttacking = false;
+            CurrentTime = 0f;
+            Animator.StopRangeAttack();
+        }
+
         public override void OnReloadFinished()
         {
             Animator.PlayRangeAttack();

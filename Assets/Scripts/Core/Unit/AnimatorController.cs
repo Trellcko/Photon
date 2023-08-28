@@ -11,6 +11,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		public event Action DieAnimationCompleted;
 		public event Action MeleeAnimationCompleted;
 		public event Action RangeAnimationCompleted;
+		public event Action RangeAnimationAttackFrameCompleted;
 
 		private const string Range = "IsRangeAttacking";
 		private const string Melee = "IsMeleeAttacking";
@@ -18,6 +19,10 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private const string Die = "Die";
 		private const string Speed = "Speed";
 
+		public void InvokeRangeAnimationAttackFrameCompleted()
+		{
+			RangeAnimationAttackFrameCompleted?.Invoke();
+		}
 
 		public void InvokeMeleeAnimationComplete()
 		{
@@ -35,7 +40,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		public void StopRangeAttack()
 		{
-			_animator.Animator.SetBool(Melee, false);
+			_animator.Animator.SetBool(Range, false);
 		}
 
 		public void StopMeleeAttack()

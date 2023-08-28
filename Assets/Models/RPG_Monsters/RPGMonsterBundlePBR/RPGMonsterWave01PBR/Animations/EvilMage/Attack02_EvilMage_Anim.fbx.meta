@@ -448,6 +448,13 @@ ModelImporter:
       curves: []
       events:
       - time: 0.34923664
+        functionName: InvokeRangeAnimationAttackFrameCompleted
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
         functionName: InvokeRangeAnimationCompleted
         data: 
         objectReferenceParameter: {instanceID: 0}
