@@ -9,9 +9,9 @@ namespace Trellcko.MonstersVsMonsters.Core
 {
     public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
+        [SerializeField] private string _gameSceneName;
+     
         private NetworkRunner _runner;
-
-        private List<int> integer = new List<int>();
 
         private void OnGUI()
         {
@@ -19,11 +19,11 @@ namespace Trellcko.MonstersVsMonsters.Core
             {
                 if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
                 {
-                    StartGame(GameMode.Shared, "TEST ROOM");
+                    JoinSession(GameMode.Shared, "TEST ROOM", _gameSceneName);
                 }
                 if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
                 {
-                    StartGame(GameMode.Shared, "");
+                    JoinSession(GameMode.Shared, "", _gameSceneName);
                 }
             }
         }
@@ -97,7 +97,12 @@ namespace Trellcko.MonstersVsMonsters.Core
         {
         }
 
-        async void StartGame(GameMode mode, string roomName)
+        private async void JoinLobby()
+        {
+            await _runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
+        }
+
+        private async void JoinSession(GameMode mode, string roomName, string sceneName)
         {
             _runner = gameObject.AddComponent<NetworkRunner>();
             _runner.ProvideInput = true;
@@ -107,8 +112,10 @@ namespace Trellcko.MonstersVsMonsters.Core
                 PlayerCount = 2,
                 GameMode = mode,
                 SessionName = roomName,
-                Scene = SceneManager.GetActiveScene().buildIndex,
-                SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+                Scene = SceneManager.GetSceneByName(sceneName).buildIndex,
+                SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
+                CustomLobbyName = "LobbyID"
+                
             });
          
         }
