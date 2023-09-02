@@ -7,26 +7,26 @@ using UnityEngine.SceneManagement;
 
 namespace Trellcko.MonstersVsMonsters.Core
 {
-    public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+    public class NetworkRunnerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         [SerializeField] private string _gameSceneName;
      
         private NetworkRunner _runner;
 
-        private void OnGUI()
-        {
-            if (_runner == null)
-            {
-                if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-                {
-                    JoinSession(GameMode.Shared, "TEST ROOM", _gameSceneName);
-                }
-                if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-                {
-                    JoinSession(GameMode.Shared, "", _gameSceneName);
-                }
-            }
-        }
+        //private void OnGUI()
+        //{
+        //    if (_runner == null)
+        //    {
+        //        if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
+        //        {
+        //            JoinSession(GameMode.Shared, "TEST ROOM", _gameSceneName);
+        //        }
+        //        if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
+        //        {
+        //            JoinSession(GameMode.Shared, "", _gameSceneName);
+        //        }
+        //    }
+        //}
 
         public void OnConnectedToServer(NetworkRunner runner)
         {
@@ -97,14 +97,22 @@ namespace Trellcko.MonstersVsMonsters.Core
         {
         }
 
-        private async void JoinLobby()
+        public async void JoinLobby()
         {
             await _runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
         }
 
-        private async void JoinSession(GameMode mode, string roomName, string sceneName)
+        public async void JoinGame(GameMode mode, string roomName, string sceneName)
         {
-            _runner = gameObject.AddComponent<NetworkRunner>();
+            NetworkRunner networkRunner = null;
+            if (!TryGetComponent(out networkRunner))
+            {
+                _runner = gameObject.AddComponent<NetworkRunner>();
+            }
+            else
+            {
+                _runner = networkRunner;
+            }
             _runner.ProvideInput = true;
             
             await _runner.StartGame(new StartGameArgs()
