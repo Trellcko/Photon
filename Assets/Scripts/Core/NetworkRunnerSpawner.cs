@@ -15,6 +15,8 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public event Action JoinedToLobby;
 
+        public event Action<List<SessionInfo>> SessionsUpdated;
+
         //private void OnGUI()
         //{
         //    if (_runner == null)
@@ -89,6 +91,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
         {
+            SessionsUpdated?.Invoke(sessionList);
         }
 
         public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)

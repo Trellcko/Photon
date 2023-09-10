@@ -31,7 +31,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 			_sessionInfo = sessionInfo;
 
 			_sessionName.SetText(_sessionInfo.Name);
-			_sessionCount.SetText($"{_sessionInfo.PlayerCount / _sessionInfo.MaxPlayers}");
+			_sessionCount.SetText($"{_sessionInfo.PlayerCount} / {_sessionInfo.MaxPlayers}");
 
 			_joinButton.gameObject.SetActive(_sessionInfo.PlayerCount < _sessionInfo.MaxPlayers);
 		}

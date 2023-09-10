@@ -235,10 +235,6 @@ PrefabInstance:
       propertyPath: _MaxHealth
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 974653303785516753, guid: 993b829ccc49fc94081b5aa16abf9cc6, type: 3}
-      propertyPath: m_Size.y
-      value: 3.21
-      objectReference: {fileID: 0}
     - target: {fileID: 2173481545784353105, guid: 993b829ccc49fc94081b5aa16abf9cc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3

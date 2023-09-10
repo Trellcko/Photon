@@ -1,13 +1,12 @@
 using Trellcko.MonstersVsMonsters.Core;
-using Trellcko.MonstersVsMonsters.UI;
 using UnityEngine;
 
-namespace Trellcko
+namespace Trellcko.MonstersVsMonsters.UI
 {
-	public class MainMenuUIHandler : MonoBehaviour
+    public class MainMenuUIHandler : MonoBehaviour
 	{
-		[SerializeField] private PlayerDetail _playerDetailPanel;
-		[SerializeField] private SessionList _sessionList;
+		[SerializeField] private Canvas _playerDetailCanvas;
+		[SerializeField] private Canvas _sessionListCanvas;
         [SerializeField] private NetworkRunnerSpawner _runnerSpawner;
 
         private void OnEnable()
@@ -22,8 +21,8 @@ namespace Trellcko
 
         private void OnFindGameButtonClicked()
         {
-            _playerDetailPanel.gameObject.SetActive(false);
-            _sessionList.gameObject.SetActive(true);
+            _playerDetailCanvas.gameObject.SetActive(false);
+            _sessionListCanvas.gameObject.SetActive(true);
         }
     }
 }
