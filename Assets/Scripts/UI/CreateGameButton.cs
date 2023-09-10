@@ -23,9 +23,9 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnClick()
         {
-            string name = PlayerPrefs.GetString(Constants.NAME);
+            string name = PlayerPrefs.GetString(Constants.NAME, "Annonymys");
 
-            _networkRunner.JoinGame(Fusion.GameMode.Shared, $"{name}'s game", Constants.GAME_SCENE);
+            _networkRunner.JoinGame(Fusion.GameMode.Shared, $"{name}'s game");
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Trellcko.MonstersVsMonsters.Core
      
         private NetworkRunner _runner;
 
+        public event Action JoinedToLobby;
+
         //private void OnGUI()
         //{
         //    if (_runner == null)
@@ -99,11 +101,39 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public async void JoinLobby()
         {
-            await _runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
+            SetRunner();
+
+            var task = await _runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
+            if(task.Ok)
+            {
+                JoinedToLobby?.Invoke();
+            }
         }
 
-        public async void JoinGame(GameMode mode, string roomName, string sceneName)
+        public async void JoinGame(GameMode mode, string roomName)
         {
+            print("start joining to the session");
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            SetRunner();
+            _runner.ProvideInput = true;
+            
+            await _runner.StartGame(new StartGameArgs()
+            {
+                PlayerCount = 2,
+                GameMode = mode,
+                SessionName = roomName,
+                Scene =(SceneRef)1,
+                SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
+                CustomLobbyName = "LobbyID" 
+            });
+        }
+
+        private NetworkRunner SetRunner()
+        {
+            if (_runner)
+            {
+                return _runner;
+            }
             NetworkRunner networkRunner = null;
             if (!TryGetComponent(out networkRunner))
             {
@@ -113,19 +143,12 @@ namespace Trellcko.MonstersVsMonsters.Core
             {
                 _runner = networkRunner;
             }
-            _runner.ProvideInput = true;
-            
-            await _runner.StartGame(new StartGameArgs()
-            {
-                PlayerCount = 2,
-                GameMode = mode,
-                SessionName = roomName,
-                Scene = SceneManager.GetSceneByName(sceneName).buildIndex,
-                SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-                CustomLobbyName = "LobbyID"
-                
-            });
-         
+            return _runner;
+        }
+
+        private void OnActiveSceneChanged(Scene arg0, Scene arg1)
+        {
+            print(arg1.name);
         }
     }
 }

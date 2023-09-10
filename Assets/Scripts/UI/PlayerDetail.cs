@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using Trellcko.MonstersVsMonsters.Core;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ namespace Trellcko.MonstersVsMonsters.UI
         {
             _findGameButton.onClick.RemoveListener(FindGame);
         }
+
         private void FindGame()
         {
             PlayerPrefs.SetString(Constants.NAME, _playerNameInputField.text);
