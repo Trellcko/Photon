@@ -15,6 +15,16 @@ namespace Trellcko
             _miner.Updated += OnUpdated;
         }
 
+        private void Start()
+        {
+            OnUpdated();    
+        }
+
+        private void OnDisable()
+        {
+            _miner.Updated -= OnUpdated;
+        }
+
         private void OnUpdated()
         {
         _text.SetText($"{_miner.TypeResource}: {_miner.Value}");

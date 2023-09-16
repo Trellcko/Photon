@@ -12,22 +12,24 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 	{
 		[SerializeField] private List<Spawner> _spawners;
 		[SerializeField] private GameResultHandler _resultHandler;
+        [SerializeField] private PlayerInitializer _initializer;
 
 		[SerializeField] private Health _baseHealth;
 
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Transform _targetPoint;
 
-        private PlayerRef _playerRef;
-
+        [Networked] public PlayerRef Owner { get; set; }
 
         private void OnEnable()
         {
+            _initializer.PlayerInititalized += OnPlayerIntitalized;
             _baseHealth.Died += OnDiedRpc;
         }
 
         private void OnDisable()
         {
+            _initializer.PlayerInititalized -= OnPlayerIntitalized;
             _baseHealth.Died -= OnDiedRpc;
         }
 
@@ -35,9 +37,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         public void Init(PlayerRef playerRef)
         {
             Object.RequestStateAuthority();
-            _playerRef = playerRef;
-
-            print(this._playerRef + " !=" + playerRef);
+            Owner = playerRef;
 
             foreach (var spawner in _spawners)
             {
@@ -45,12 +45,28 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             }
         }
 
-
+        private void OnPlayerIntitalized(int obj)
+        {
+            if(obj < 2)
+            {
+                foreach(var spawner in _spawners)
+                {
+                    spawner.Disable();
+                }
+            }
+            else
+            {
+                foreach (var spawner in _spawners)
+                {
+                    spawner.Enable();
+                }
+            }
+        }
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
         private void OnDiedRpc()
         {
-			_resultHandler.SetLooseToRpc(_playerRef);
+			_resultHandler.SetLooseToRpc(Owner);
         }
 
   	}

@@ -10,9 +10,10 @@ namespace Trellcko.MonstersVsMonsters.Core
     public class NetworkRunnerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         [SerializeField] private string _gameSceneName;
-     
+
         private NetworkRunner _runner;
 
+        public event Action JoinedToSession;
         public event Action JoinedToLobby;
 
         public event Action<List<SessionInfo>> SessionsUpdated;
@@ -68,7 +69,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
         {
-
+            JoinedToSession?.Invoke();
             Debug.Log("Joined");
         }
 

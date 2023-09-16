@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Resource
@@ -6,7 +8,9 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
 	public class Miner : MonoBehaviour
 	{
         [field: SerializeField] public Resource TypeResource { get; private set; }
-		[SerializeField] private float _miningTime;
+
+        [SerializeField] private PlayerInitializer _playerInitializer;
+        [SerializeField] private float _miningTime;
 		[SerializeField] private float _count;
 
         public event Action Updated;
@@ -15,17 +19,43 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
 
         private float _currentTime;
 
-        private void Update()
+        private void OnEnable()
         {
-            if(_currentTime < _miningTime)
+            _playerInitializer.PlayerInititalized += OnPlayerIntitalized;
+        }
+
+        private void OnDisable()
+        {
+            _playerInitializer.PlayerInititalized -= OnPlayerIntitalized;
+        }
+
+        private void OnPlayerIntitalized(int obj)
+        {
+            Debug.Log("Miner: " + obj);
+
+            if(obj >= 2)
             {
-                _currentTime += Time.deltaTime;
+                print("Start mining");
+                StartCoroutine(MinerCorun());
             }
-            else
+        }
+
+        private IEnumerator MinerCorun()
+        {
+            while (true)
             {
-                Value += _count;
-                Updated?.Invoke();
-                _currentTime = 0f;
+                if (_currentTime < _miningTime)
+                {
+                    print("Current Timer: " + _currentTime);
+                    _currentTime += Time.deltaTime;
+                }
+                else
+                {
+                    Value += _count;
+                    Updated?.Invoke();
+                    _currentTime = 0f;
+                }
+                yield return null;
             }
         }
 

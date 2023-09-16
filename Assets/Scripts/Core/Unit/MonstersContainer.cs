@@ -6,12 +6,12 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
 	public class MonstersContainer : MonoBehaviour
 	{
-		[Networked] private Dictionary<Side, List<Health>> _spawned { get; set; }
+		[Networked] public Dictionary<Side, List<Health>> Spawned { get; set; }
 
 		public void Add(Side side, Health health)
 		{
-			_spawned[side].Add(health);
-			health.Died += () => { _spawned[side].Remove(health); };
+			Spawned[side].Add(health);
+			health.Died += () => { Spawned[side].Remove(health); };
 		}
 
 		//TODO: can be change to KDTree alghoritm
@@ -19,7 +19,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		{
 			Health result = null;
 
-			foreach(Health health in _spawned[side]) 
+			foreach(Health health in Spawned[side]) 
 			{
 				Transform target = health.transform;
 

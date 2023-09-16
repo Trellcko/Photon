@@ -24,7 +24,9 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		private Transform _spawnPoint;
 		private Transform _targetPoint;
-		
+
+		private bool _isEnable;
+
 		public void Init(PlayerRef playerRef, Transform spawnPoint, Transform targetPoint)
 		{
 			_spawnPoint = spawnPoint;
@@ -32,9 +34,19 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			_ref = playerRef;
 		}
 
+		public void Enable()
+		{
+			_isEnable = true;
+		}
+
+		public void Disable()
+		{
+			_isEnable = false;
+		}
+
         public void OnPointerClick(PointerEventData eventData)
         {
-			if(Runner.LocalPlayer == _ref)
+			if(Runner.LocalPlayer == _ref && _isEnable)
 			{
 				Clicked?.Invoke(this);
 			}
