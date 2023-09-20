@@ -19,6 +19,9 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Transform _targetPoint;
 
+        public event Action ChangedOwner;
+
+        
         [Networked] public PlayerRef Owner { get; set; }
 
         private void OnEnable()
@@ -32,7 +35,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
             _initializer.PlayerInititalized -= OnPlayerIntitalized;
             _baseHealth.Died -= OnDiedRpc;
         }
-
 
         public void Init(PlayerRef playerRef)
         {

@@ -36,7 +36,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void FixedUpdateNetwork()
         {
-			_transform.Transform.position += _speed * _direction * Runner.DeltaTime;   
+			_transform.Transform.position += _speed * _direction * Runner.DeltaTime * Time.timeScale;   
         }
     }
 }

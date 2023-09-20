@@ -1,5 +1,6 @@
 using Fusion;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Trellcko.MonstersVsMonsters.Core.Unit;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public event Action<int> PlayerInititalized;
 
+        public List<PlayerRef> InitalizedPlayerRefs { get; private set; } = new();
+
+        public PlayerRef OpponentRef { get; private set; }
+
         public override void Spawned()
         {
             base.Spawned();
@@ -23,9 +28,18 @@ namespace Trellcko.MonstersVsMonsters.Core
         }
 
         [Rpc]
-        public void RPCPlayerInitializedInvoke([RpcTarget] PlayerRef playerRef)
+        public void RPCPlayerInitializedInvoke([RpcTarget] PlayerRef playerRef, PlayerRef opponentRef)
         {
             PlayerInititalized?.Invoke(2);
+            OpponentRef = opponentRef;
+            Debug.Log(OpponentRef);
+            SavePlayerRefs();
+        }
+
+        private void SavePlayerRefs()
+        {
+            InitalizedPlayerRefs.Add(_leftBase.Owner);
+            InitalizedPlayerRefs.Add(_rigthBase.Owner);
         }
 
         public void Initialize()
@@ -41,8 +55,10 @@ namespace Trellcko.MonstersVsMonsters.Core
             {
                 print("Rigth base was init with ID: " + Runner.LocalPlayer);
                 _rigthBase.Init(Runner.Simulation.LocalPlayer);
-                PlayerInititalized?.Invoke(2);
-                RPCPlayerInitializedInvoke(_leftBase.Owner);
+                OpponentRef = _leftBase.Owner;
+                PlayerInititalized?.Invoke(2); 
+                SavePlayerRefs();
+                RPCPlayerInitializedInvoke(_leftBase.Owner, Runner.LocalPlayer);
             }
         }
 	}
