@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Resource
 {
-	public class Miner : MonoBehaviour
+	public class Miner : MonoBehaviour, IPaused
 	{
         [field: SerializeField] public Resource TypeResource { get; private set; }
 
@@ -15,18 +15,26 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
 
         public event Action Updated;
 
+
         public float Value { get; private set; }
+
+        private bool _isWork = true;
 
         private float _currentTime;
 
         private void OnEnable()
         {
             _playerInitializer.PlayerInititalized += OnPlayerIntitalized;
+            if (_playerInitializer.InitalizedPlayerRefs.Count > 1)
+            {
+                PauseHandler.Instance.Register(this);
+            }
         }
 
         private void OnDisable()
         {
             _playerInitializer.PlayerInititalized -= OnPlayerIntitalized;
+            PauseHandler.Instance.UnRegister(this);
         }
 
         private void OnPlayerIntitalized(int obj)
@@ -35,6 +43,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
 
             if(obj >= 2)
             {
+                PauseHandler.Instance.Register(this);
                 print("Start mining");
                 StartCoroutine(MinerCorun());
             }
@@ -44,16 +53,19 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
         {
             while (true)
             {
-                if (_currentTime < _miningTime)
+                if (_isWork)
                 {
-                    print("Current Timer: " + _currentTime);
-                    _currentTime += Time.deltaTime;
-                }
-                else
-                {
-                    Value += _count;
-                    Updated?.Invoke();
-                    _currentTime = 0f;
+
+                    if (_currentTime < _miningTime)
+                    {
+                        _currentTime += Time.deltaTime;
+                    }
+                    else
+                    {
+                        Value += _count;
+                        Updated?.Invoke();
+                        _currentTime = 0f;
+                    }
                 }
                 yield return null;
             }
@@ -69,6 +81,18 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
         {
             Value -= Mathf.Clamp(value, 0, float.MaxValue);
             Updated?.Invoke();
+        }
+
+        public void Pause()
+        {
+            print("Miner Stop");
+            _isWork = false;
+        }
+
+        public void UnPause()
+        {
+            print("Miner Return");
+            _isWork = true;
         }
     }
 

@@ -18,21 +18,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public event Action<List<SessionInfo>> SessionsUpdated;
 
-        //private void OnGUI()
-        //{
-        //    if (_runner == null)
-        //    {
-        //        if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-        //        {
-        //            JoinSession(GameMode.Shared, "TEST ROOM", _gameSceneName);
-        //        }
-        //        if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-        //        {
-        //            JoinSession(GameMode.Shared, "", _gameSceneName);
-        //        }
-        //    }
-        //}
-
+      
         public void OnConnectedToServer(NetworkRunner runner)
         {
         }
@@ -120,7 +106,7 @@ namespace Trellcko.MonstersVsMonsters.Core
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
             SetRunner();
             _runner.ProvideInput = true;
-            
+
             await _runner.StartGame(new StartGameArgs()
             {
                 PlayerCount = 2,
@@ -128,7 +114,7 @@ namespace Trellcko.MonstersVsMonsters.Core
                 SessionName = roomName,
                 Scene =(SceneRef)1,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-                CustomLobbyName = "LobbyID" 
+                CustomLobbyName = "LobbyID"
             });
         }
 
@@ -152,7 +138,6 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private void OnActiveSceneChanged(Scene arg0, Scene arg1)
         {
-            print(arg1.name);
         }
     }
 }

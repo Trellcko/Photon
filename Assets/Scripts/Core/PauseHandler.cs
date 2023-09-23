@@ -1,20 +1,52 @@
 using Fusion;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core
 {
-	public class PauseHandler : NetworkBehaviour
+    public class PauseHandler : NetworkBehaviour
 	{
 		public event Action ChandedState;
 
+        public static PauseHandler Instance => _instance;
+
+        private static PauseHandler _instance;
+
 		public bool IsPaused { get; private set; }
+
+        private List<IPaused> _pauseds = new List<IPaused>();
+
+        public override void Spawned()
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(_instance.gameObject);
+
+            }
+            if (FindObjectsOfType<PauseHandler>().Length > 1)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+
+
+        public void Register(IPaused paused)
+        {
+            _pauseds.Add(paused);
+        }
+
+        public void UnRegister(IPaused paused) 
+        {
+            _pauseds.Remove(paused);
+        }
 
 		public void ChangeState(PlayerRef opponent)
 		{
-			if (IsPaused)
+			if (!IsPaused)
 			{
-
                 Pause(); 
 				RPCPause(opponent);
             }
@@ -29,6 +61,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private void RPCPause([RpcTarget] PlayerRef player)
 		{
+            print(player);
 			Pause();
 		}
 
@@ -40,14 +73,21 @@ namespace Trellcko.MonstersVsMonsters.Core
 		}
         private void Pause()
         {
-            Time.timeScale = 0f;
-			IsPaused = true;
+            IsPaused = true;
+            print("Pause");
+            foreach(var paused in _pauseds)
+            {
+                paused.Pause();
+            }
         }
 
         private void UnPause()
-		{
-            Time.timeScale = 1f;
-            IsPaused = false;
+        {
+            IsPaused = false; 
+            foreach (var paused in _pauseds)
+            {
+                paused.UnPause();
+            }
         }
-	}
+    }
 }

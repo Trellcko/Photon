@@ -7,7 +7,6 @@ namespace Trellcko.MonstersVsMonsters.UI
 	public class PauseButton : MonoBehaviour
 	{
 		[SerializeField] private Button _button;
-		[SerializeField] private PauseHandler _pauseHandler;
 		[SerializeField] private PlayerInitializer _playerInitializer;
 
         private void Awake()
@@ -29,7 +28,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnClick()
         {
-            _pauseHandler.ChangeState();
+            PauseHandler.Instance.ChangeState(_playerInitializer.OpponentRef);
         }
 
         private void OnPlayerInititalized(int obj)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-	public class AnimatorController : MonoBehaviour
+	public class AnimatorController : MonoBehaviour, IPaused
 	{
 		[SerializeField] private NetworkMecanimAnimator _animator;
 
@@ -18,8 +18,20 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 		private const string Win = "Win";
 		private const string Die = "Die";
 		private const string Speed = "Speed";
+		private const string AnimationSpeed = "AnimationSpeed";
 
-		public void InvokeRangeAnimationAttackFrameCompleted()
+        private void OnEnable()
+        {
+			PauseHandler.Instance.Register(this);
+        }
+
+        private void OnDisable()
+        {
+
+            PauseHandler.Instance.UnRegister(this);
+        }
+
+        public void InvokeRangeAnimationAttackFrameCompleted()
 		{
 			RangeAnimationAttackFrameCompleted?.Invoke();
 		}
@@ -78,5 +90,14 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 			_animator.Animator.SetFloat(Speed, 1);
 		}
 
+        public void Pause()
+        {
+			_animator.Animator.SetFloat(AnimationSpeed, 0f);
+        }
+
+        public void UnPause()
+        {
+            _animator.Animator.SetFloat(AnimationSpeed, 1f);
+        }
     }
 }

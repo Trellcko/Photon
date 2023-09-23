@@ -24,6 +24,15 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         
         [Networked] public PlayerRef Owner { get; set; }
 
+        public override void Spawned()
+        {
+            base.Spawned();
+            if(Object == null)
+            {
+                Object = GetComponent<NetworkObject>();
+            }
+        }
+
         private void OnEnable()
         {
             _initializer.PlayerInititalized += OnPlayerIntitalized;

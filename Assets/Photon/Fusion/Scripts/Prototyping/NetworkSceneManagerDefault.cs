@@ -117,8 +117,8 @@ namespace Fusion {
         throw new InvalidOperationException($"Failed to load scene {newScene}: async op failed");
       }
 
-      var sceneObjects = FindNetworkObjects(loadedScene, disable: true, addVisibilityNodes: true);
-
+      var sceneObjects = FindNetworkObjects(loadedScene, disable: false, addVisibilityNodes: true);
+            Debug.Log(sceneObjects.Count);
       // unload temp scene
       var tempScene = Runner.MultiplePeerUnityScene;
       Runner.MultiplePeerUnityScene = loadedScene;
@@ -168,8 +168,9 @@ namespace Fusion {
         yield return null;
       }
 
-      var sceneObjects = FindNetworkObjects(loadedScene, disable: true);
-      finished(sceneObjects);
+      var sceneObjects = FindNetworkObjects(loadedScene, disable: false);
+            Debug.Log(sceneObjects.Count);
+            finished(sceneObjects);
     }
     
 #if FUSION_USE_ADDRESSABLES

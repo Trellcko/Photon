@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-    public class MonsterBehaviour : NetworkBehaviour
+    public class MonsterBehaviour : NetworkBehaviour, IPaused
 	{
         [field: SerializeField] public Health Health { get; private set; }
 
@@ -18,19 +18,31 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
 		private StateMachine _stateMachine { get; set; }
 
+        private bool _isWork = true;
+
+        public override void Spawned()
+        {
+            _isWork = !PauseHandler.Instance.IsPaused;
+        }
+
         private void OnEnable()
         {
+            PauseHandler.Instance.Register(this);
             Health.Died += DestroyMonsterRpc;
         }
 
         private void OnDisable()
         {
+            PauseHandler.Instance.UnRegister(this);
             Health.Died -= DestroyMonsterRpc;
         }
 
         private void Update()
         {
-            _stateMachine?.Update();
+            if (_isWork)
+            {
+                _stateMachine?.Update();
+            }
         }
 
         [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -41,7 +53,10 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void FixedUpdateNetwork()
         {
-            _stateMachine?.FixedUpdate();
+            if (_isWork)
+            {
+                _stateMachine?.FixedUpdate();
+            }
         }
 
         public void SetTransform(Vector3 position, Vector3 rotation)
@@ -76,5 +91,14 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         }
 
+        public void Pause()
+        {
+            _isWork = false;
+        }
+
+        public void UnPause()
+        {
+            _isWork = true;
+        }
     }
 }

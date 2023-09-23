@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core.Unit
 {
-    public class OpponentChecker : MonoBehaviour
+    public class OpponentChecker : MonoBehaviour, IPaused
 	{
 		[SerializeField] private float _radius;
         [SerializeField] private float _delay;
@@ -15,14 +15,27 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         private Side _mySide;
 
+        private bool _isWork = true;
+
         private float _currentTime = 0f;
 
         private GameObject _lastTargetGO;
 
         private Collider[] _hits = new Collider[10];
 
+        private void OnEnable()
+        {
+            PauseHandler.Instance.Register(this);
+        }
+
+        private void OnDisable()
+        {
+            PauseHandler.Instance.UnRegister(this);
+        }
+
         private void Update()
         {
+            if(!_isWork) return;
             _currentTime += Time.deltaTime;
 
             if (_currentTime > _delay)
@@ -71,6 +84,16 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, _radius);
+        }
+
+        public void Pause()
+        {
+            _isWork = false;
+        }
+
+        public void UnPause()
+        {
+            _isWork = true;
         }
     }
 }

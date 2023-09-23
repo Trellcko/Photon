@@ -40,7 +40,7 @@ namespace Trellcko.MonstersVsMonsters.Core.Unit
 
         public override void FixedUpdate()
         {
-			_rigibody.Transform.position = Vector3.MoveTowards(_rigibody.Transform.position, _navMeshAgent.nextPosition, _rigibody.Runner.DeltaTime * Time.timeScale * _navMeshAgent.speed);
+			_rigibody.Transform.position = Vector3.MoveTowards(_rigibody.Transform.position, _navMeshAgent.nextPosition, _rigibody.Runner.DeltaTime * _navMeshAgent.speed);
         }
     }
 }
