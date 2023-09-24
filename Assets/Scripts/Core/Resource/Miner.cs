@@ -25,10 +25,20 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
         private void OnEnable()
         {
             _playerInitializer.PlayerInititalized += OnPlayerIntitalized;
-            if (_playerInitializer.InitalizedPlayerRefs.Count > 1)
+            if (PauseHandler.IsInitialized)
             {
                 PauseHandler.Instance.Register(this);
             }
+            else
+            {
+                PauseHandler.Initialized += OnPauseHandlerInitialized;
+            }
+        }
+
+        private void OnPauseHandlerInitialized()
+        {
+            PauseHandler.Initialized -= OnPauseHandlerInitialized;
+            PauseHandler.Instance.Register(this);
         }
 
         private void OnDisable()
@@ -43,7 +53,6 @@ namespace Trellcko.MonstersVsMonsters.Core.Resource
 
             if(obj >= 2)
             {
-                PauseHandler.Instance.Register(this);
                 print("Start mining");
                 StartCoroutine(MinerCorun());
             }

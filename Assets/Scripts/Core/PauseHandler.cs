@@ -13,16 +13,23 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private static PauseHandler _instance;
 
+        public static bool IsInitialized { get; private set; }
+
 		public bool IsPaused { get; private set; }
+
+        public static event Action Initialized;
 
         private List<IPaused> _pauseds = new List<IPaused>();
 
         public override void Spawned()
         {
+            base.Spawned(); 
             if (_instance == null)
             {
                 _instance = this;
                 DontDestroyOnLoad(_instance.gameObject);
+                IsInitialized = true;
+                Initialized?.Invoke();
 
             }
             if (FindObjectsOfType<PauseHandler>().Length > 1)
@@ -31,7 +38,9 @@ namespace Trellcko.MonstersVsMonsters.Core
             }
         }
 
-
+        private void Start()
+        {
+        }
 
         public void Register(IPaused paused)
         {
