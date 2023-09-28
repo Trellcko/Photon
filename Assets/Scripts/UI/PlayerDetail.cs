@@ -13,8 +13,6 @@ namespace Trellcko.MonstersVsMonsters.UI
 		[SerializeField] private Button _findGameButton;
         [SerializeField] private NetworkRunnerSpawner _networkRunnerSpawner;
 
-        public event Action FindGameButtonClicked;
-
         private void OnEnable()
         {
             _findGameButton.onClick.AddListener(FindGame);
@@ -38,7 +36,6 @@ namespace Trellcko.MonstersVsMonsters.UI
         {
             PlayerPrefs.SetString(Constants.NAME, _playerNameInputField.text);
             _networkRunnerSpawner.JoinLobby();
-            FindGameButtonClicked?.Invoke();
         }
     }
 }

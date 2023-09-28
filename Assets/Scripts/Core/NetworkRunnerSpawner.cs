@@ -114,7 +114,8 @@ namespace Trellcko.MonstersVsMonsters.Core
                 SessionName = roomName,
                 Scene =(SceneRef)1,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-                CustomLobbyName = "LobbyID"
+                CustomLobbyName = "LobbyID",
+                
             });
         }
 
