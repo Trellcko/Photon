@@ -7,16 +7,15 @@ namespace Trellcko.MonstersVsMonsters.UI
 	{
 		[SerializeField] private Canvas _playerDetailCanvas;
 		[SerializeField] private Canvas _sessionListCanvas;
-        [SerializeField] private NetworkRunnerSpawner _runnerSpawner;
 
         private void OnEnable()
         {
-            _runnerSpawner.JoinedToLobby += OnFindGameButtonClicked;
+            NetworkRunnerSpawner.JoinedToLobby += OnFindGameButtonClicked;
         }
 
         private void OnDisable()
         {
-            _runnerSpawner.JoinedToLobby -= OnFindGameButtonClicked;
+            NetworkRunnerSpawner.JoinedToLobby -= OnFindGameButtonClicked;
         }
 
         private void OnFindGameButtonClicked()

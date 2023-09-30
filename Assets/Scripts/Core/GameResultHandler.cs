@@ -1,5 +1,6 @@
 using Fusion;
 using TMPro;
+using Trellcko.MonstersVsMonsters.Core;
 using UnityEngine;
 
 namespace Trellcko
@@ -8,7 +9,25 @@ namespace Trellcko
 	{
 		[SerializeField] private TextMeshProUGUI _text;
 
-		[Rpc(RpcSources.All, RpcTargets.All)]
+        private void OnEnable()
+        {
+            NetworkRunnerSpawner.LeaveSession += OnLeaveSession;
+        }
+
+        private void OnDisable()
+        {
+            NetworkRunnerSpawner.LeaveSession -= OnLeaveSession;
+        }
+
+        private void OnLeaveSession(PlayerRef obj)
+        {
+			if(obj != Runner.LocalPlayer)
+			{
+                _text.SetText($"You win!");
+            }
+		}
+
+        [Rpc(RpcSources.All, RpcTargets.All)]
 		public void SetLooseToRpc(PlayerRef loose)
 		{
 			print(loose.ToString() + " " + Runner.LocalPlayer);

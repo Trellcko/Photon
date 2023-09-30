@@ -1,4 +1,5 @@
 using Fusion;
+using Fusion.Photon.Realtime;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private NetworkRunner _runner;
 
-        public event Action JoinedToSession;
-        public event Action JoinedToLobby;
+        public static event Action<PlayerRef> LeaveSession;
+        public static event Action JoinedToSession;
+        public static event Action JoinedToLobby;
 
-        public event Action<List<SessionInfo>> SessionsUpdated;
+        public static event Action<List<SessionInfo>> SessionsUpdated;
 
       
         public void OnConnectedToServer(NetworkRunner runner)
@@ -25,7 +27,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
         {
-            Debug.Log("Cannot, connect");
+            Debug.Log("Cannot connect");
         }
 
         public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
@@ -61,6 +63,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
         {
+            LeaveSession?.Invoke(player);
             Debug.Log("Left");
         }
 
@@ -100,12 +103,14 @@ namespace Trellcko.MonstersVsMonsters.Core
             }
         }
 
-        public async void JoinGame(GameMode mode, string roomName)
+        public async void JoinGame(GameMode mode, string roomName, string region)
         {
             print("start joining to the session");
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
             SetRunner();
             _runner.ProvideInput = true;
+
+            AppSettings customAppSetting = BuildCustomAppSetting(region);
 
             await _runner.StartGame(new StartGameArgs()
             {
@@ -115,9 +120,31 @@ namespace Trellcko.MonstersVsMonsters.Core
                 Scene =(SceneRef)1,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
                 CustomLobbyName = "LobbyID",
-                
+                CustomPhotonAppSettings = customAppSetting
+
             });
         }
+        private AppSettings BuildCustomAppSetting(string region, string customAppID = null, string appVersion = "1.0.0")
+        {
+
+            var appSettings = PhotonAppSettings.Instance.AppSettings.GetCopy();
+
+            appSettings.UseNameServer = true;
+            appSettings.AppVersion = appVersion;
+
+            if (string.IsNullOrEmpty(customAppID) == false)
+            {
+                appSettings.AppIdFusion = customAppID;
+            }
+
+            if (string.IsNullOrEmpty(region) == false)
+            {
+                appSettings.FixedRegion = region.ToLower();
+            }
+
+            return appSettings;
+        }
+
 
         private NetworkRunner SetRunner()
         {
@@ -125,7 +152,7 @@ namespace Trellcko.MonstersVsMonsters.Core
             {
                 return _runner;
             }
-            NetworkRunner networkRunner = null;
+            NetworkRunner networkRunner;
             if (!TryGetComponent(out networkRunner))
             {
                 _runner = gameObject.AddComponent<NetworkRunner>();

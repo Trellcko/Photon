@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using Trellcko.MonstersVsMonsters.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 {
 	public class CreateGameButton : MonoBehaviour
 	{
+        [SerializeField] private TMP_Dropdown _regionDropDown;
 		[SerializeField] private Button _button;
 
 		[SerializeField] private NetworkRunnerSpawner _networkRunner;
@@ -25,7 +27,7 @@ namespace Trellcko.MonstersVsMonsters.UI
         {
             string name = PlayerPrefs.GetString(Constants.NAME, "Annonymys");
 
-            _networkRunner.JoinGame(Fusion.GameMode.Shared, $"{name}'s game");
+            _networkRunner.JoinGame(Fusion.GameMode.Shared, $"{name}'s game", _regionDropDown.captionText.text);
         }
     }
 }

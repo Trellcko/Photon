@@ -10,6 +10,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 	public class SessionList : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _statusText;
+		[SerializeField] private TMP_Dropdown _regionDropDown;
 		
 		[SerializeField] private SessionListItem _sessionListItemPrefab;
 		
@@ -17,6 +18,8 @@ namespace Trellcko.MonstersVsMonsters.UI
 		[SerializeField] private NetworkRunnerSpawner _network;
 
 		private List<SessionListItem> _sessionListItems = new List<SessionListItem>();
+
+		private List<SessionInfo> _sessions = new List<SessionInfo>();
 
 		private int _index = 0;
 
@@ -27,26 +30,47 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnEnable()
         {
-            _network.SessionsUpdated += OnSessionsUpdated;
+            NetworkRunnerSpawner.SessionsUpdated += OnSessionsUpdated;
+			_regionDropDown.onValueChanged.AddListener(OnRegionChanged);
         }
 
         private void OnDisable()
         {
-            _network.SessionsUpdated -= OnSessionsUpdated;
+            NetworkRunnerSpawner.SessionsUpdated -= OnSessionsUpdated;
+            _regionDropDown.onValueChanged.RemoveListener(OnRegionChanged);
         }
 
-        private void OnSessionsUpdated(System.Collections.Generic.List<SessionInfo> obj)
+        private void OnRegionChanged(int index)
         {
-			ClearList();
+			if(_sessions.Count > 0)
+			{
+				OnSessionsUpdated(new(_sessions));
+			}
+        }
+
+        private void OnSessionsUpdated(List<SessionInfo> obj)
+        {
+			bool hasCorrectSession = false;
+
+            ClearList();
 			if(obj.Count <= 0)
 			{
 				OnNoSesionFound();
 				return;
 			}
-			foreach(SessionInfo info in obj)
+			foreach (SessionInfo info in obj)
 			{
-				AddSesion(info);
+				_sessions.Add(info);
+				if (info.Region == _regionDropDown.captionText.text)
+				{
+					hasCorrectSession = true;
+					AddSesionItem(info);
+				}
 			}
+			if(!hasCorrectSession)
+			{
+                OnNoSesionFound();
+            }
         }
 
         public void ClearList()
@@ -55,11 +79,12 @@ namespace Trellcko.MonstersVsMonsters.UI
 			{
 				child.gameObject.SetActive(false);
 			}
-			_index = 0;
+            _sessions.Clear();
+            _index = 0;
 			_statusText.enabled = false;
 		}
 
-		public void AddSesion(SessionInfo session)
+		public void AddSesionItem(SessionInfo session)
 		{
 			SessionListItem spawned;
 
@@ -71,6 +96,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 			else
 			{
 				spawned = _sessionListItems[_index];
+				spawned.gameObject.SetActive(true);
 				_index++;
 			}
 			
@@ -82,7 +108,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnJoined(SessionInfo obj)
         {
-			_network.JoinGame(GameMode.Shared, obj.Name);
+			_network.JoinGame(GameMode.Shared, obj.Name, _regionDropDown.captionText.text);
         }
 
 		private void OnNoSesionFound()
