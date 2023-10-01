@@ -2,7 +2,7 @@ using TMPro;
 using Trellcko.MonstersVsMonsters.Core.Resource;
 using UnityEngine;
 
-namespace Trellcko
+namespace Trellcko.MonstersVsMonsters.UI
 {
 	public class ResourceDisplayer : MonoBehaviour
 	{

@@ -3,6 +3,7 @@ using Fusion.Photon.Realtime;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -103,27 +104,48 @@ namespace Trellcko.MonstersVsMonsters.Core
             }
         }
 
-        public async void JoinGame(GameMode mode, string roomName, string region)
+
+        public async void JoinCustomGame(GameMode mode, string roomName, string region)
         {
-            print("start joining to the session");
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
             SetRunner();
             _runner.ProvideInput = true;
 
-            AppSettings customAppSetting = BuildCustomAppSetting(region);
+            await StartSession(mode, roomName, region, Constants.Custom).ContinueWith(x => { _runner.SetActiveScene((SceneRef)1); });
+        }
 
+       
+        public async void JoinRatigGame(GameMode mode, string roomName, string region, int rating)
+        {
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            SetRunner();
+            _runner.ProvideInput = true;
+            Dictionary<string, SessionProperty> sessionProperties = new()
+            {
+                { Constants.Rating, SessionProperty.Convert(rating) }
+            };
+
+            await StartSession(mode, roomName, region, Constants.Rating, sessionProperties);
+        }
+
+        private async Task StartSession(GameMode mode, string roomName, string region,
+           string lobbyName, Dictionary<string, SessionProperty> sessionProperties = null)
+        {
+
+            AppSettings customAppSetting = BuildCustomAppSetting(region);
             await _runner.StartGame(new StartGameArgs()
             {
                 PlayerCount = 2,
                 GameMode = mode,
                 SessionName = roomName,
-                Scene =(SceneRef)1,
                 SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-                CustomLobbyName = "LobbyID",
-                CustomPhotonAppSettings = customAppSetting
+                CustomLobbyName = lobbyName,
+                CustomPhotonAppSettings = customAppSetting,
+                SessionProperties = sessionProperties
 
             });
         }
+
         private AppSettings BuildCustomAppSetting(string region, string customAppID = null, string appVersion = "1.0.0")
         {
 

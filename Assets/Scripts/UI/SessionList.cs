@@ -61,7 +61,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 			foreach (SessionInfo info in obj)
 			{
 				_sessions.Add(info);
-				if (info.Region == _regionDropDown.captionText.text)
+				if (info.Region == _regionDropDown.captionText.text && info.Properties == null)
 				{
 					hasCorrectSession = true;
 					AddSesionItem(info);
@@ -108,7 +108,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void OnJoined(SessionInfo obj)
         {
-			_network.JoinGame(GameMode.Shared, obj.Name, _regionDropDown.captionText.text);
+			 _network.JoinCustomGame(GameMode.Shared, obj.Name, _regionDropDown.captionText.text);
         }
 
 		private void OnNoSesionFound()

@@ -21,9 +21,9 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey(Constants.NAME))
+            if (PlayerPrefs.HasKey(Constants.Name))
             {
-                _playerNameInputField.text = PlayerPrefs.GetString(Constants.NAME);
+                _playerNameInputField.text = PlayerPrefs.GetString(Constants.Name);
             }   
         }
 
@@ -34,7 +34,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void FindGame()
         {
-            PlayerPrefs.SetString(Constants.NAME, _playerNameInputField.text);
+            PlayerPrefs.SetString(Constants.Name, _playerNameInputField.text);
             _networkRunnerSpawner.JoinLobby();
         }
     }
