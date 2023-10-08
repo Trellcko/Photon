@@ -34,6 +34,7 @@ namespace Trellcko.MonstersVsMonsters.UI
 
         private void FindGame()
         {
+            _findGameButton.interactable = false;
             PlayerPrefs.SetString(Constants.Name, _playerNameInputField.text);
             _networkRunnerSpawner.JoinLobby();
         }

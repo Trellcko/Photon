@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Trellcko.MonstersVsMonsters.Core
 {
-	public class MatchMaker : NetworkBehaviour
+	public class MatchMaker : MonoBehaviour
 	{
         [SerializeField] private NetworkRunnerSpawner _networkRunnerSpawner;
 
@@ -17,6 +17,8 @@ namespace Trellcko.MonstersVsMonsters.Core
         [SerializeField] private int _step;
         [SerializeField] private int _timeToChangeOffset;
         [SerializeField] private int _maxOffset;
+
+        public bool IsLookingMatch { get; private set; }
 
         private List<SessionInfo> _sessions = new();
         
@@ -34,22 +36,24 @@ namespace Trellcko.MonstersVsMonsters.Core
             NetworkRunnerSpawner.SessionsUpdated -= OnSessionsUpdated;
         }
 
-        public void StartFindingGame()
+        public void StartLookingGame()
         {
             if (_findGameCorun != null)
             {
                 StopCoroutine(_findGameCorun);
             }
+            IsLookingMatch = true;
             _findGameCorun = StartCoroutine(FindGameCorun());
         }
 
-        public void StopFindingGame()
+        public void StopLookingGame()
         {
-            StopCoroutine(_findGameCorun);
-            if (Runner)
+            if (_findGameCorun != null)
             {
-                Runner.Shutdown();
+                StopCoroutine(_findGameCorun);
+                _networkRunnerSpawner.Reconnect();
             }
+            IsLookingMatch = false;
         }
 
         private IEnumerator FindGameCorun()
@@ -59,38 +63,43 @@ namespace Trellcko.MonstersVsMonsters.Core
             int myRating = PlayerPrefs.GetInt(Constants.Rating, _testRating);
             string name = PlayerPrefs.GetString(Constants.Name, "Annonymys");
 
-            yield return null;
-            if(_sessions.Count == 0)
+            while (true)
             {
-                
-                _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, name, _dropDown.captionText.text, myRating);
-                yield break;
-            }
-            if (_isFresh && Runner.SessionInfo == null)
-            {
-                foreach(var session in _sessions)
+                if (_sessions.Count == 0 && _networkRunnerSpawner.Runner.SessionInfo == null)
                 {
-                    _isFresh = false;
-                    int rating = (int)session.Properties[Constants.Rating].PropertyValue;
-                    if (rating <= myRating + currentOffset && rating >= myRating - currentOffset)
+                    _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, name, _dropDown.captionText.text, myRating);
+                }
+                if (_isFresh && _networkRunnerSpawner.Runner.SessionInfo == null)
+                {
+                    foreach (var session in _sessions)
                     {
-                        _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, session.Name, session.Region, rating);
-                        yield break;
-                    }
-                    currentTime += Time.deltaTime;
-                    if(currentTime > _timeToChangeOffset)
-                    {
-                        currentOffset += _step;
-                        currentTime = 0f;
-                        _isFresh = true;
-
-                        if(currentOffset > _maxOffset)
+                        _isFresh = false;
+                        int rating = (int)session.Properties[Constants.Rating].PropertyValue;
+                        if (rating <= myRating + currentOffset && rating >= myRating - currentOffset)
                         {
-                            _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, name, _dropDown.captionText.text, myRating);
+                            _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, session.Name, session.Region, rating);
                             yield break;
+                        }
+                        currentTime += Time.deltaTime;
+                        if (currentTime > _timeToChangeOffset)
+                        {
+                            currentOffset += _step;
+                            currentTime = 0f;
+                            _isFresh = true;
+
+                            if (currentOffset > _maxOffset)
+                            {
+                                _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, name, _dropDown.captionText.text, myRating);
+                                break;
+                            }
                         }
                     }
                 }
+                else if(_networkRunnerSpawner.Runner.SessionInfo && _networkRunnerSpawner.Runner.SessionInfo.PlayerCount == 2)
+                {
+                    _networkRunnerSpawner.Runner.SetActiveScene((SceneRef)1);
+                }
+                yield return null;
             }
             
         }

@@ -12,8 +12,7 @@ namespace Trellcko.MonstersVsMonsters.Core
     public class NetworkRunnerSpawner : MonoBehaviour, INetworkRunnerCallbacks
     {
         [SerializeField] private string _gameSceneName;
-
-        private NetworkRunner _runner;
+        public NetworkRunner Runner { get; private set; }
 
         public static event Action<PlayerRef> LeaveSession;
         public static event Action JoinedToSession;
@@ -97,29 +96,28 @@ namespace Trellcko.MonstersVsMonsters.Core
         {
             SetRunner();
 
-            var task = await _runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
+            var task = await Runner.JoinSessionLobby(SessionLobby.Custom, "LobbyId");
             if(task.Ok)
             {
                 JoinedToLobby?.Invoke();
             }
         }
 
+        public async void Reconnect()
+        {
+            await Runner.Shutdown();
+            JoinLobby();
+        }
 
         public async void JoinCustomGame(GameMode mode, string roomName, string region)
         {
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
-            SetRunner();
-            _runner.ProvideInput = true;
-
-            await StartSession(mode, roomName, region, Constants.Custom).ContinueWith(x => { _runner.SetActiveScene((SceneRef)1); });
+            
+            await StartSession(mode, roomName, region, Constants.Custom).ContinueWith(x => { Runner.SetActiveScene((SceneRef)1); });
         }
 
        
         public async void JoinRatigGame(GameMode mode, string roomName, string region, int rating)
         {
-            SceneManager.activeSceneChanged += OnActiveSceneChanged;
-            SetRunner();
-            _runner.ProvideInput = true;
             Dictionary<string, SessionProperty> sessionProperties = new()
             {
                 { Constants.Rating, SessionProperty.Convert(rating) }
@@ -131,9 +129,13 @@ namespace Trellcko.MonstersVsMonsters.Core
         private async Task StartSession(GameMode mode, string roomName, string region,
            string lobbyName, Dictionary<string, SessionProperty> sessionProperties = null)
         {
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+            SetRunner();
+            Runner.ProvideInput = true;
+
 
             AppSettings customAppSetting = BuildCustomAppSetting(region);
-            await _runner.StartGame(new StartGameArgs()
+            await Runner.StartGame(new StartGameArgs()
             {
                 PlayerCount = 2,
                 GameMode = mode,
@@ -170,20 +172,20 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private NetworkRunner SetRunner()
         {
-            if (_runner)
+            if (Runner)
             {
-                return _runner;
+                return Runner;
             }
             NetworkRunner networkRunner;
             if (!TryGetComponent(out networkRunner))
             {
-                _runner = gameObject.AddComponent<NetworkRunner>();
+                Runner = gameObject.AddComponent<NetworkRunner>();
             }
             else
             {
-                _runner = networkRunner;
+                Runner = networkRunner;
             }
-            return _runner;
+            return Runner;
         }
 
         private void OnActiveSceneChanged(Scene arg0, Scene arg1)
