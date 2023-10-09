@@ -81,6 +81,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
         {
+            print("Updated");
             SessionsUpdated?.Invoke(sessionList);
         }
 

@@ -28,11 +28,13 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private void OnEnable()
         {
+            print("Subscribe");
             NetworkRunnerSpawner.SessionsUpdated += OnSessionsUpdated;
         }
 
         private void OnDisable()
         {
+            print("Unsubscribe");
             NetworkRunnerSpawner.SessionsUpdated -= OnSessionsUpdated;
         }
 
@@ -65,11 +67,11 @@ namespace Trellcko.MonstersVsMonsters.Core
 
             while (true)
             {
-                if (_sessions.Count == 0 && _networkRunnerSpawner.Runner.SessionInfo == null)
+                if (_sessions.Count == 0)
                 {
                     _networkRunnerSpawner.JoinRatigGame(GameMode.Shared, name, _dropDown.captionText.text, myRating);
                 }
-                if (_isFresh && _networkRunnerSpawner.Runner.SessionInfo == null)
+                if (_isFresh && !_networkRunnerSpawner.Runner.SessionInfo.IsValid)
                 {
                     foreach (var session in _sessions)
                     {
@@ -95,7 +97,7 @@ namespace Trellcko.MonstersVsMonsters.Core
                         }
                     }
                 }
-                else if(_networkRunnerSpawner.Runner.SessionInfo && _networkRunnerSpawner.Runner.SessionInfo.PlayerCount == 2)
+                else if(_networkRunnerSpawner.Runner.SessionInfo.IsValid && _networkRunnerSpawner.Runner.SessionInfo.PlayerCount == 2)
                 {
                     _networkRunnerSpawner.Runner.SetActiveScene((SceneRef)1);
                 }
@@ -106,6 +108,7 @@ namespace Trellcko.MonstersVsMonsters.Core
 
         private void OnSessionsUpdated(List<SessionInfo> sessions)
         {
+            Debug.Log("Session Updated!");
             _sessions = sessions.Where(x=>x.Properties.Count > 0).ToList();
             _isFresh = true;
         }
